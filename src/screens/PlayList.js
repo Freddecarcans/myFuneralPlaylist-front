@@ -6,7 +6,7 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    AsyncStorage
+    KeyboardAvoidingView
 } from 'react-native';
 import Constants from 'expo-constants';
 
@@ -64,8 +64,7 @@ const DATA = [
     
 ];
 
-function Tracks({ id, title, selected, onSelect }) {
-    
+function Tracks({ id, title, selected, onSelect }) { 
     return (
         <TouchableOpacity
             onPress={() => onSelect(id)}
@@ -75,10 +74,10 @@ function Tracks({ id, title, selected, onSelect }) {
             ]}
         >
             <Text style={styles.title}>{title}</Text>
+            <TextInput></TextInput>
         </TouchableOpacity>
     );
 }
-
 
 export default function PlayList() {
     
@@ -93,12 +92,12 @@ export default function PlayList() {
         },
         [selected],
     );
-        console.log(AsyncStorage.getItem('token'));
-    
-
+   
     return (
-        <SafeAreaView style={styles.container}>
-            <TextInput>Titre de ma Playlist</TextInput>
+       
+        <SafeAreaView style={styles.container} >
+        <KeyboardAvoidingView behavior="position" enabled>
+            {/* <TextInput>Titre de ma Playlist</TextInput> */}
             <FlatList
                 data={DATA}
                 renderItem={({ item }) => (
@@ -112,6 +111,7 @@ export default function PlayList() {
                 keyExtractor={item => item.rang}
                 extraData={selected}
             />
+        </KeyboardAvoidingView>
         </SafeAreaView>
     );
 }
@@ -124,9 +124,9 @@ const styles = StyleSheet.create({
     },
     item: {
         backgroundColor: "#0099ff",
-        padding: 20,
+        padding: 10,
         marginVertical: 8,
-        marginHorizontal: 16,
+        marginHorizontal: 8,
     },
     title: {
         fontSize: 20,

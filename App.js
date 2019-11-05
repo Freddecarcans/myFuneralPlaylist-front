@@ -1,12 +1,15 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
+
 
 import Router from './src/Config/router';
 import store from './src/store';
 
 
 class App extends React.Component {
+	
 	render() {
 		return (
 			<Provider store={store}>
@@ -20,7 +23,7 @@ class App extends React.Component {
 }
 const styles = StyleSheet.create({
 	container: {
-	  flex: 1,
+	  flex: 1
 	},
 }
 )

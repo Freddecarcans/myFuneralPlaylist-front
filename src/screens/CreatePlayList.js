@@ -1,7 +1,6 @@
 
-
 import React from 'react';
-import { View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { AsyncStorage, View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
 import { Text } from 'react-native';
@@ -16,7 +15,10 @@ class CreatePlayList extends React.Component {
 		};
 
 	}
-
+	componentDidMount() {
+		
+			console.log(AsyncStorage.getItem('token'));
+	}
 	render() {
 		return (
 			<ScrollView style={styles.container}>
