@@ -1,9 +1,10 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Home from '../Components/Home';
-import Register from '../Components/Register';
-import Connection from '../Components/Connection';
-import CreatePlayList from '../Components/CreatePlayList';
-import PlayList from '../Components/PlayList';
+import Home from '../screens/Home';
+import Register from '../screens/Register';
+import Connection from '../screens/Connection';
+import CreatePlayList from '../screens/CreatePlayList';
+import PlayList from '../screens/PlayList';
+import FetchPlaylist from '../screens/FetchPlaylist';
 
 
 const RouterStackNavigator = createStackNavigator({
@@ -31,8 +32,8 @@ const RouterStackNavigator = createStackNavigator({
 			title:'Créer une playlist'
 		}
 	},
-	PlayList: {
-		screen: PlayList,
+	FetchPlaylist: {
+		screen: FetchPlaylist,
 		navigationOptions:{
 			title:'Ma Playlist'
 		}

@@ -1,19 +1,20 @@
 
 import React from 'react';
-import { View, TextInput, StyleSheet, AsyncStorage, TouchableOpacity, Keyboard } from 'react-native';
+import { View, TextInput, StyleSheet, AsyncStorage, Keyboard, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from "react-native-elements";
 import userLogin from '../actions/user';
 import { urlApi } from '../Config/constants';
+import escalier from './images/escalier.jpg';
 
 
 class Connection extends React.Component {
 	// static navigationOptions = {
-    //     header: null,
-    // };
+	//     header: null,
+	// };
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -25,18 +26,17 @@ class Connection extends React.Component {
 	}
 
 
-	goToPlayList  ()  {
+	goToPlayList() {
 		const { navigate } = this.props.navigation;
-		navigate('PlayList');
+		navigate('FetchPlaylist');
 	}
 
 	componentDidMount() {
-		console.log(AsyncStorage.getItem('token'));
-		console.log(this.state);
-		
-		
+
+		const token = AsyncStorage.getItem('token');
+		console.log(token);
 	}
-	async handleSubmit () {
+	handleSubmit = async () => {
 		const { userLogin } = this.props;
 		Keyboard.dismiss();
 
@@ -45,7 +45,7 @@ class Connection extends React.Component {
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			}),
-			body: JSON.stringify( this.state ),			
+			body: JSON.stringify(this.state),
 		})
 			.then(res => {
 				if (res.status === 401) {
@@ -55,20 +55,17 @@ class Connection extends React.Component {
 				}
 			})
 			.then((user) => {
-				this.goToPlayList();
-				userLogin(user);
-				if(user){
-				AsyncStorage.setItem('token', user.token);
-				AsyncStorage.setItem('email', user.email);
-				}			
+				if (user !== undefined) {
+					AsyncStorage.setItem('token', user.token);
+					AsyncStorage.setItem('email', user.email);
+					this.goToPlayList();
+				}
 			})
-			
-	}
-
-
+		}
 	render() {
 		return (
 			<View style={styles.container}>
+				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<View style={styles.container2}>
 
 					<TextInput style={styles.signup}
@@ -90,6 +87,7 @@ class Connection extends React.Component {
 							buttonStyle={styles.button}
 							title="Se connecter"
 							onPress={this.handleSubmit}
+						// onPress={this.goToPlayList()}
 						/>
 					</TouchableOpacity>
 				</View>
@@ -139,11 +137,14 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		marginTop: scale(24)
-
-
-	}
+	},
+	mark: {
+		position: "absolute",
+		width: "100%",
+		height: "100%"
+	},
 });
 
 const mdtp = dispatch => bindActionCreators({ userLogin }, dispatch);
 
-export default connect( null, mdtp )(Connection);
+export default connect(null, mdtp)(Connection);

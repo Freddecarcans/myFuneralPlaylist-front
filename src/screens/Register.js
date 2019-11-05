@@ -1,16 +1,12 @@
 
 import React from 'react';
 
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-
-// import Config from "react-native-config";
-// import {Dropdown} from "react-native-material-dropdown";
-// import {TextField} from "react-native-material-textfield";
-// import MaterialIcon from "react-native-vector-icons/MaterialIcons";
+import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Button } from "react-native-elements";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 // import noInternetStyles from "../../styles/noInternet.style";
 // import {StackActions} from "react-navigation";
-// import EStyleSheet from 'react-native-extended-stylesheet';
+
 import { scale } from 'react-native-size-matters';
 import { urlApi } from '../Config/constants';
 
@@ -26,7 +22,7 @@ class Register extends React.Component {
 			password: "",
 			// verifypassword: "",
 			email: "",
-			
+
 
 
 		};
@@ -41,7 +37,7 @@ class Register extends React.Component {
 	// }
 
 
-	async handleSubmit () {
+	async handleSubmit() {
 		await fetch(`${urlApi}/auth/signup`, {
 			method: "POST",
 			headers: new Headers({
@@ -51,80 +47,78 @@ class Register extends React.Component {
 
 		})
 			.then(res => res.json())
-			.then((user)=>{
-				if(user.Created)
-				this.goToCreatePlayList();
+			.then((user) => {
+				if (user.Created)
+					this.goToCreatePlayList();
 			})
-			
+
 
 	}
 
 	render() {
-	
+
 		return (
 			
-			<View style={styles.container}>
-				
+				//  <View style={styles.container}> 
+				<KeyboardAvoidingView style={styles.container} behavior="padding" enabled >
 				<View style={styles.container2}>
-					
+					<TextInput style={styles.signup}
+						placeholder="email"
+						onChangeText={(email) => this.setState({ email })}
+						value={this.state.email}
+					>
+					</TextInput>
+
+					<TextInput style={styles.signup}
+						placeholder="password"
+						onChangeText={(password) => this.setState({ password })}
+						value={this.state.password}
+					>
+					</TextInput>
+
+					{/* <TextInput style={styles.signup}
+						placeholder="verifypassword"
+						onChangeText={() => this.setState()}
+						value={this.state.verifypassword}
+					>
+					</TextInput> */}
 					<TextInput style={styles.signup}
 						placeholder="username"
-						onChangeText={(username)=>this.setState({username})}
+						onChangeText={(username) => this.setState({ username })}
 						value={this.state.username}
 					>
 					</TextInput>
-					
+
 					<TextInput style={styles.signup}
 						placeholder="name"
-						onChangeText={(name)=>this.setState({name})}
+						onChangeText={(name) => this.setState({ name })}
 						value={this.state.name}
 					>
 					</TextInput>
 
 					<TextInput style={styles.signup}
 						placeholder="firstname"
-						onChangeText={(firstname)=>this.setState({firstname})}
+						onChangeText={(firstname) => this.setState({ firstname })}
 						value={this.state.firstname}
 					>
 					</TextInput>
 
-					<TextInput style={styles.signup}
-						placeholder="password"
-						onChangeText={(password)=>this.setState({password})}
-						value={this.state.password}
-					>
-					</TextInput>
-
-					<TextInput style={styles.signup}
-						placeholder="verifypassword"
-						onChangeText={()=>this.setState()}
-						value={this.state.verifypassword}
-					>
-					</TextInput>
-
-					<TextInput style={styles.signup}
-						placeholder="email"
-						onChangeText={(email)=>this.setState({email})}
-						value={this.state.email}
-					>
-					</TextInput>
-
 					<TouchableOpacity>
-					<Button
-						buttonStyle={styles.button}
-						onPress={this.handleSubmit}
-						title="S' enregistrer"
-						titleStyle={styles.signinText}
-					/>
+						<Button
+							buttonStyle={styles.button}
+							onPress={this.handleSubmit}
+							title="S' enregistrer"
+							titleStyle={styles.signinText}
+						/>
 					</TouchableOpacity>
 				</View>
-			</View>
+				</KeyboardAvoidingView>
+				//  </View> 
 			
 		);
 	}
 }
 
-// EStyleSheet.build(styles);
 
 const styles = StyleSheet.create({
 	container: {
@@ -162,8 +156,8 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		marginBottom: 0
-		
-		
+
+
 	}
 });
 
