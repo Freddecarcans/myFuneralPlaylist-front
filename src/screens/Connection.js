@@ -1,43 +1,41 @@
 
 import React from 'react';
-import { View, TextInput, StyleSheet, AsyncStorage, Keyboard, Image } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { View, TextInput, StyleSheet, Keyboard, Image, Text, AsyncStorage } from 'react-native';
+// import AsyncStorage from '@react-native-community/async-storage';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from "react-native-elements";
-import userLogin from '../actions/user';
+// import { userLogin } from '../actions/auth';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
 
 
 class Connection extends React.Component {
-	// static navigationOptions = {
-	//     header: null,
-	// };
+	static navigationOptions = {
+		header: null,
+	};
 	constructor(props) {
 		super(props);
 		this.state = {
 			email: "",
 			password: "",
-			// isLoading: true,
-			// isConnected: true,	
 		}
 	}
 
 
-	goToPlayList() {
+	goToHomeAfterLogin() {
 		const { navigate } = this.props.navigation;
-		navigate('FetchPlaylist');
+		navigate('HomeAfterLogin');
 	}
 
 	componentDidMount() {
 
-		const token = AsyncStorage.getItem('token');
-		console.log(token);
 	}
+	
 	handleSubmit = async () => {
-		const { userLogin } = this.props;
+		// const { userLogin } = this.props;
 		Keyboard.dismiss();
 
 		await fetch(`${urlApi}/auth/signin`, {
@@ -55,27 +53,28 @@ class Connection extends React.Component {
 				}
 			})
 			.then((user) => {
+				// userLogin(user);
 				if (user !== undefined) {
-					AsyncStorage.setItem('token', user.token);
-					AsyncStorage.setItem('email', user.email);
 					this.goToPlayList();
 				}
 			})
-		}
+	}
 	render() {
+		
 		return (
 			<View style={styles.container}>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
+				<Text style={styles.title}>Connexion</Text>
 				<View style={styles.container2}>
 
-					<TextInput style={styles.signup}
+					<TextInput style={styles.signin}
 						placeholder="email"
 						onChangeText={email => this.setState({ email })}
 						value={this.state.email}
 					>
 					</TextInput>
 
-					<TextInput style={styles.signup}
+					<TextInput style={styles.signin}
 						placeholder="password"
 						onChangeText={password => this.setState({ password })}
 						value={this.state.password}
@@ -87,7 +86,6 @@ class Connection extends React.Component {
 							buttonStyle={styles.button}
 							title="Se connecter"
 							onPress={this.handleSubmit}
-						// onPress={this.goToPlayList()}
 						/>
 					</TouchableOpacity>
 				</View>
@@ -108,43 +106,53 @@ const styles = StyleSheet.create({
 		justifyContent: "flex-start"
 	},
 
-	signup: {
-		backgroundColor: "#0099ff",
+	signin: {
+		backgroundColor: "#2f55a4",
 		marginLeft: scale(16),
 		marginRight: scale(16),
 		paddingVertical: scale(8),
 		alignItems: "center",
 		justifyContent: "center",
 		marginBottom: scale(24),
-		marginTop: scale(24)
+		marginTop: scale(24),
+		borderRadius: 50,
+		paddingLeft: scale(20),
+		color: "#ffffff"
 	},
 
 	textinput: {
 		marginLeft: 5,
 		marginRight: 5,
 		height: 50,
-		borderColor: '#000000',
-		borderWidth: 1,
+		// borderColor: '#000000',
+		// borderWidth: 1,
 		paddingLeft: 5,
-		borderRadius: 25
 
 	},
 	button: {
-		backgroundColor: "#0099ff",
+		backgroundColor: "#2f55a4",
 		marginLeft: scale(50),
 		marginRight: scale(50),
 		paddingVertical: scale(8),
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: scale(24)
+		marginTop: scale(24),
+		borderRadius: 50
 	},
 	mark: {
 		position: "absolute",
 		width: "100%",
 		height: "100%"
 	},
+	title: {
+		fontSize: 25,
+		textAlign: "center",
+		color: "#ffffff",
+		marginTop: 25
+	}
 });
 
-const mdtp = dispatch => bindActionCreators({ userLogin }, dispatch);
+// const mdtp = dispatch => bindActionCreators({ userLogin }, dispatch);
 
-export default connect(null, mdtp)(Connection);
+// export default connect(null, mdtp)(Connection);
+export default Connection;

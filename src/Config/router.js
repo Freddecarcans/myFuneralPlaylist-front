@@ -5,37 +5,43 @@ import Connection from '../screens/Connection';
 import CreatePlayList from '../screens/CreatePlayList';
 import PlayList from '../screens/PlayList';
 import FetchPlaylist from '../screens/FetchPlaylist';
+import EmailScreen from '../screens/EmailScreen';
+import HomeAfterLogin from '../screens/HomeAfterLogin';
+import MyAccount from '../screens/MyAccount';
 
 
 const RouterStackNavigator = createStackNavigator({
 	Home: {
 		screen: Home,
-		navigationOptions:{
-			title:'Accueil'
-		}
 	},
 	Register: {
 		screen: Register,
-		navigationOptions:{
-			title:'Créer un compte'
-		}
+	},
+	EmailScreen: {
+		screen: EmailScreen,
+	},
+	HomeAfterLogin: {
+		screen: HomeAfterLogin,
+	},
+	MyAccount: {
+		screen: MyAccount,
 	},
 	Connection: {
 		screen: Connection,
-		navigationOptions:{
-			title:'Connexion'
+		navigationOptions: {
+			title: 'Connexion'
 		}
 	},
 	CreatePlayList: {
 		screen: CreatePlayList,
-		navigationOptions:{
-			title:'Créer une playlist'
+		navigationOptions: {
+			title: 'Créer une playlist'
 		}
 	},
 	FetchPlaylist: {
 		screen: FetchPlaylist,
-		navigationOptions:{
-			title:'Ma Playlist'
+		navigationOptions: {
+			title: 'Ma Playlist'
 		}
 	},
 },

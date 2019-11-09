@@ -1,39 +1,45 @@
-const initialState = {
-    token:{},
-    loading: true,
-    error: null,
+// import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from 'react-native';
+
+const tokenStorage = async () => {
+  try {
+    await AsyncStorage.getItem('token')
+  } catch (error) {
+    console.log(error.message);  
+  }
+}
+const emailStorage = async () => {
+  try{
+    await AsyncStorage.getItem('email')
+  } catch (error) {
+    console.log(error.message);
+    
+  }
 }
 
-const auth = (state = initialState, action) => {
-    switch (action.type) {
-        case 'GET_TOKEN':
-            return {
-                ...state,
-                token: action.token
-            };
-        case 'SAVE_TOKEN':
-            return {
-                ...state,
-                token: action.token
-            };
-        case 'REMOVE_TOKEN':
-            return {
-                ...state,
-                token: action.token
-            };
-        case 'LOADING':
-            return {
-                ...state,
-                loading: action.isLoading
-            };
-        case 'ERROR':
-            return {
-                ...state,
-                error: action.error
-            };
-        default:
-            return state;
-    }
+const initialState = {
+  token: tokenStorage,
+  email: emailStorage,
 };
 
-export default auth;
+const user = (state = initialState, action) => {
+  switch (action.type) {
+    case 'USER_LOGIN': {
+      return {
+        ...state,
+        token: (action.user ? action.user.token : ''),
+        email: (action.user ? action.user.email : ''),
+      };
+    }
+    case 'USER_LOGOUT': {
+      return {
+        ...state,
+        token: null,
+        email: null,
+      };
+    }
+    default:
+      return state;
+  }
+};
+export default user;

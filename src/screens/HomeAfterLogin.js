@@ -1,5 +1,5 @@
-
 import React from 'react';
+
 import { View, Dimensions, Image, Text, StyleSheet } from 'react-native';
 import { Button } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -8,19 +8,23 @@ import escalier from './images/escalier.jpg';
 
 const { width } = Dimensions.get("window");
 
-
-class Home extends React.Component {
+class HomeAfterLogin extends React.Component {
 	static navigationOptions = {
 		header: null,
 	};
+	constructor(props) {
+		super(props);
+		this.state = {
 
-	goToConnection() {
-		const { navigate } = this.props.navigation;
-		navigate('Connection');
+		};
 	}
-	goToEmailScreen() {
+	goToPlayList() {
 		const { navigate } = this.props.navigation;
-		navigate('EmailScreen')
+		navigate('FetchPlaylist');
+	}
+	goToMyAccount() {
+		const { navigate } = this.props.navigation;
+		navigate('MyAccount');
 	}
 
 	render() {
@@ -28,29 +32,21 @@ class Home extends React.Component {
 			<View style={styles.container}>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.titlehome}>My Funeral Playlist</Text>
-				<View style={styles.container2}>
-					<TouchableOpacity>
-						<Button
-							buttonStyle={styles.signup}
-							onPress={() => { this.goToEmailScreen() }}
-							title="S' inscrire"
-							titleStyle={styles.signupText}
-						/>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => { this.goToConnection() }}
-						style={styles.signin}
-					>
-						<Text style={styles.signinText}>Déjà enregistré, SE CONNECTER</Text>
-					</TouchableOpacity>
+				<TouchableOpacity style={styles.signup}
+					onPress = {this.goToMyAccount}
+				>
+					<Text style={styles.signupText}>Mon Compte</Text>
+				</TouchableOpacity>
 
-				</View>
+				<TouchableOpacity style={styles.signup}
+					onPress = {this.goToPlayList}
+				>
+					<Text style={styles.signupText}>Ma Playlist</Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}
-
 }
-
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "grey",
@@ -113,5 +109,4 @@ const styles = StyleSheet.create({
 		alignItems: "center"
 	}
 });
-
-export default Home;
+export default HomeAfterLogin;

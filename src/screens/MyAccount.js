@@ -4,17 +4,15 @@ import React from 'react';
 import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Image, Keyboard, Alert } from 'react-native';
 import { Button } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
-// import noInternetStyles from "../../styles/noInternet.style";
-// import {StackActions} from "react-navigation";
-
 import { scale } from 'react-native-size-matters';
+
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
 
 
 
 
-class Register extends React.Component {
+class MyAccount extends React.Component {
 	static navigationOptions = {
 		header: null,
 
@@ -24,19 +22,22 @@ class Register extends React.Component {
 		super(props);
 
 		this.state = {
-			password: "",
-			verifypassword: "",
-			email: ""
+            email: "",
+            username:"",
+            name:"",
+            firstname:"",
+            contactA:"",
+            contactB:""
 		};
 
 	}
-	goToMyaccount() {
+	goToCreatePlayList() {
 		const { navigate } = this.props.navigation;
-		navigate('MyAccount');
+		navigate('CreatePlayList');
 	}
 
 	async handleSubmit() {
-		const { email, password, verifypassword } = this.state;
+		const { email, password } = this.state;
 
 		Keyboard.dismiss();
 
@@ -75,22 +76,8 @@ class Register extends React.Component {
 						value={email}
 					>
 					</TextInput>
-
+	
 					<TextInput style={styles.signup}
-						placeholder="password"
-						onChangeText={(password) => this.setState({ password })}
-						value={this.state.password}
-					>
-					</TextInput>
-
-					<TextInput style={styles.signup}
-						placeholder="verifypassword"
-						onChangeText={(verifypassword) => this.setState({ verifypassword })}
-						value={this.state.verifypassword}
-					>
-					</TextInput>
-
-					{/* <TextInput style={styles.signup}
 						placeholder="username"
 						onChangeText={(username) => this.setState({ username })}
 						value={this.state.username}
@@ -109,13 +96,27 @@ class Register extends React.Component {
 						onChangeText={(firstname) => this.setState({ firstname })}
 						value={this.state.firstname}
 					>
-					</TextInput> */}
+					</TextInput>
+
+                    <TextInput style={styles.signup}
+						placeholder="Contact 1"
+						onChangeText={(contactA) => this.setState({ contactA })}
+						value={this.state.password}
+					>
+					</TextInput>
+
+					<TextInput style={styles.signup}
+						placeholder="Contact 2"
+						onChangeText={(contactB) => this.setState({ contactB })}
+						value={this.state.verifypassword}
+					>
+					</TextInput>
 
 					<TouchableOpacity>
 						<Button
 							buttonStyle={styles.button}
 							onPress={this.handleSubmit.bind(this)}
-							title="S' enregistrer"
+							title="Enregistrer mes informations"
 							titleStyle={styles.signinText}
 						/>
 					</TouchableOpacity>
@@ -128,7 +129,6 @@ class Register extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "grey",
 		flex: 1
 	},
 	container2: {
@@ -153,7 +153,6 @@ const styles = StyleSheet.create({
 		paddingVertical: scale(8),
 		alignItems: "center",
 		justifyContent: "center",
-		// marginBottom: 0
 		borderRadius: 50
 	},
 	mark: {
@@ -169,4 +168,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default Register;
+export default MyAccount;
