@@ -20,6 +20,7 @@ const emailStorage = async () => {
 const initialState = {
   token: tokenStorage,
   email: emailStorage,
+  id: null
 };
 
 const user = (state = initialState, action) => {
@@ -31,11 +32,20 @@ const user = (state = initialState, action) => {
         email: (action.user ? action.user.email : ''),
       };
     }
+    case 'USER_LOGGED': {
+      return {
+        ...state,
+        token: action.user.token,
+        email: action.user.email,
+        id: action.user.id
+      };
+    }
     case 'USER_LOGOUT': {
       return {
         ...state,
         token: null,
         email: null,
+        id: null
       };
     }
     default:

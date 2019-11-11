@@ -2,12 +2,12 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, Keyboard, Image, Text, AsyncStorage } from 'react-native';
 // import AsyncStorage from '@react-native-community/async-storage';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from "react-native-elements";
-// import { userLogin } from '../actions/auth';
+import { userLogged } from '../actions/auth.action';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
 
@@ -33,9 +33,9 @@ class Connection extends React.Component {
 	componentDidMount() {
 
 	}
-	
+
 	handleSubmit = async () => {
-		// const { userLogin } = this.props;
+		const { userLogged } = this.props;
 		const { email, password } = this.state;
 		Keyboard.dismiss();
 
@@ -44,7 +44,7 @@ class Connection extends React.Component {
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			}),
-			body: JSON.stringify(),
+			body: JSON.stringify({email, password}),
 		})
 			.then(res => {
 				if (res.status === 401) {
@@ -54,17 +54,17 @@ class Connection extends React.Component {
 				}
 			})
 			.then((user) => {
-				// userLogin(user);
+				userLogged(user);
 				if (user !== undefined) {
-					AsyncStorage.setItem("email",user.email);
-					AsyncStorage.setItem("id", user.iduser);
-					AsyncStorage.setItem("token", user.token)
+					// AsyncStorage.setItem("email", user.email);
+					// AsyncStorage.setItem("id", user.iduser);
+					// AsyncStorage.setItem("token", user.token)
 					this.goToHomeAfterLogin();
 				}
 			})
 	}
 	render() {
-		
+
 		return (
 			<View style={styles.container}>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
 	}
 });
 
-// const mdtp = dispatch => bindActionCreators({ userLogin }, dispatch);
+const mdtp = dispatch => bindActionCreators({ userLogged }, dispatch);
 
-// export default connect(null, mdtp)(Connection);
-export default Connection;
+export default connect(null, mdtp)(Connection);
