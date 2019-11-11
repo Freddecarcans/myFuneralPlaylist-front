@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
 		marginBottom: scale(12),
 		textAlign: "center",
 		fontSize: 15,
-		color: "#2f55a4",
+		// color: "#2f55a4",
 		borderRadius: 50,
 		borderColor: "#2f55a4",
 		borderWidth: 2

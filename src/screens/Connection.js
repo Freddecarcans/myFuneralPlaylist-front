@@ -36,6 +36,7 @@ class Connection extends React.Component {
 	
 	handleSubmit = async () => {
 		// const { userLogin } = this.props;
+		const { email, password } = this.state;
 		Keyboard.dismiss();
 
 		await fetch(`${urlApi}/auth/signin`, {
@@ -43,7 +44,7 @@ class Connection extends React.Component {
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			}),
-			body: JSON.stringify(this.state),
+			body: JSON.stringify(),
 		})
 			.then(res => {
 				if (res.status === 401) {
@@ -55,7 +56,10 @@ class Connection extends React.Component {
 			.then((user) => {
 				// userLogin(user);
 				if (user !== undefined) {
-					this.goToPlayList();
+					AsyncStorage.setItem("email",user.email);
+					AsyncStorage.setItem("id", user.iduser);
+					AsyncStorage.setItem("token", user.token)
+					this.goToHomeAfterLogin();
 				}
 			})
 	}

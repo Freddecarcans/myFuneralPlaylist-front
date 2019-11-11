@@ -64,7 +64,7 @@ class MyAccount extends React.Component {
 	
 
 	render() {
-		const { email } = this.props.navigation.state.params.email;
+		// const { email } = this.props.navigation.state.params.email;
 		return (
 
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled >
@@ -73,7 +73,7 @@ class MyAccount extends React.Component {
 				<View style={styles.container2}>
 					<TextInput style={styles.signup}
 						placeholder="email"
-						value={email}
+						// value={email}
 					>
 					</TextInput>
 	

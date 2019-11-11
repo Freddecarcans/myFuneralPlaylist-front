@@ -25,8 +25,8 @@ export default class FetchPlaylist extends React.Component {
     const {iduser} = this.state;
     try {
       let iduser = await AsyncStorage.getItem('iduser');
-     
-      console.log(typeof iduser);
+      let id = JSON.parse(iduser)
+      console.log(id);
     } catch (error) {
       console.error(error);
     }
@@ -35,8 +35,9 @@ export default class FetchPlaylist extends React.Component {
     })
   }
   async componentDidMount() {
-    this.getId();
-    const id = Number(this.state.iduser);
+    let iduser = await AsyncStorage.getItem('iduser');
+    let id = JSON.parse(iduser)
+    
     console.log(`${urlApi}/users/${id}`);
     
     try {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Dimensions, Image, Text, StyleSheet } from 'react-native';
+import { View, Dimensions, Image, Text, StyleSheet, AsyncStorage } from 'react-native';
 import { Button } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
@@ -26,35 +26,45 @@ class HomeAfterLogin extends React.Component {
 		const { navigate } = this.props.navigation;
 		navigate('MyAccount');
 	}
-
+	async componentDidMount() {
+		let userInfo = await AsyncStorage.getItem("email");
+		let info = JSON.parse(userInfo);
+		console.log(info);
+		
+	}
 	render() {
 		return (
 			<View style={styles.container}>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.titlehome}>My Funeral Playlist</Text>
-				<TouchableOpacity style={styles.signup}
-					onPress = {this.goToMyAccount}
-				>
-					<Text style={styles.signupText}>Mon Compte</Text>
-				</TouchableOpacity>
+				<View style={styles.container2}>
+					<TouchableOpacity
+						style={styles.signup}
+						onPress={this.goToMyAccount.bind(this)}
+					>
+						<Text style={styles.signupText}>Mon Compte</Text>
 
-				<TouchableOpacity style={styles.signup}
-					onPress = {this.goToPlayList}
-				>
-					<Text style={styles.signupText}>Ma Playlist</Text>
-				</TouchableOpacity>
+					</TouchableOpacity>
+
+					<TouchableOpacity
+						style={styles.signup}
+						onPress={this.goToPlayList.bind(this)}
+					>
+						<Text style={styles.signupText}>Ma Playlist</Text>
+
+					</TouchableOpacity>
+				</View>
 			</View>
 		);
 	}
 }
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "grey",
 		flex: 1
 	},
 	container2: {
 		flex: 1,
-		justifyContent: "flex-end"
+		justifyContent: "center"
 	},
 	titlehome: {
 		textAlign: "center",
@@ -88,13 +98,14 @@ const styles = StyleSheet.create({
 		marginRight: scale(16),
 		paddingVertical: scale(8),
 		alignItems: "center",
-		justifyContent: "center",
+		justifyContent: "space-around",
 		marginBottom: scale(12),
-		borderRadius: 50
+		borderRadius: 50,
+
 	},
 	signupText: {
 		fontSize: 20,
-
+		color: "#ffffff"
 	},
 	mark: {
 		position: "absolute",
