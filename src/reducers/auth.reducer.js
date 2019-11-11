@@ -37,7 +37,7 @@ const user = (state = initialState, action) => {
         ...state,
         token: action.user.token,
         email: action.user.email,
-        id: action.user.id
+        id: action.user.iduser
       };
     }
     case 'USER_LOGOUT': {

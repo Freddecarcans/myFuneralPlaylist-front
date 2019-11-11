@@ -4,7 +4,7 @@ import Register from '../screens/Register';
 import Connection from '../screens/Connection';
 import CreatePlayList from '../screens/CreatePlayList';
 import PlayList from '../screens/PlayList';
-import FetchPlaylist from '../screens/FetchPlaylist';
+import FetchPlaylistContainer from '../screens/FetchPlaylist.container';
 import EmailScreen from '../screens/EmailScreen';
 import HomeAfterLogin from '../screens/HomeAfterLogin';
 import MyAccount from '../screens/MyAccount';
@@ -39,7 +39,7 @@ const RouterStackNavigator = createStackNavigator({
 		}
 	},
 	FetchPlaylist: {
-		screen: FetchPlaylist,
+		screen: FetchPlaylistContainer,
 		navigationOptions: {
 			title: 'Ma Playlist'
 		}

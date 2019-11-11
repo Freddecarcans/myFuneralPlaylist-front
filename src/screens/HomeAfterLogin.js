@@ -27,9 +27,9 @@ class HomeAfterLogin extends React.Component {
 		navigate('MyAccount');
 	}
 	async componentDidMount() {
-		let userInfo = await AsyncStorage.getItem("email");
-		let info = JSON.parse(userInfo);
-		console.log(info);
+		// let userInfo = await AsyncStorage.getItem("email");
+		// let info = JSON.parse(userInfo);
+		// console.log(info);
 		
 	}
 	render() {
