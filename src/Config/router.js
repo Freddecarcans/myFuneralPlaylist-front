@@ -13,12 +13,18 @@ import MyAccount from '../screens/MyAccount';
 const RouterStackNavigator = createStackNavigator({
 	Home: {
 		screen: Home,
+		navigationOptions: {
+			header: null
+		}
 	},
 	Register: {
 		screen: Register,
 	},
 	EmailScreen: {
 		screen: EmailScreen,
+		navigationOptions: {
+			header: null
+		}
 	},
 	HomeAfterLogin: {
 		screen: HomeAfterLogin,
