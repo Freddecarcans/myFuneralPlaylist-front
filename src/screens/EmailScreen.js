@@ -38,6 +38,7 @@ function EmailScreen(props) {
 
 
     return (
+        
         <View style={styles.container}>
             <Image source={escalier} style={styles.mark} resizeMode="cover" />
             <Text style={styles.title}>Entrer une adresse email</Text>

@@ -55,7 +55,7 @@ class Register extends React.Component {
 				.then(res => {
 					res.json()
 					if (res.status === 201) {
-						this.goToCreatePlayList();
+						// this.goToCreatePlayList();
 					}
 				})
 		}

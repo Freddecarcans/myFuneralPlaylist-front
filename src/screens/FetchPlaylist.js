@@ -1,34 +1,25 @@
 import React from 'react';
 import {
-  FlatList, ActivityIndicator, Text, View, SafeAreaView,
-  TouchableOpacity, StyleSheet, AsyncStorage, Image
+  FlatList, ActivityIndicator, Text, View,
+  TouchableOpacity, StyleSheet, Image
 } from 'react-native';
 import Constants from 'expo-constants';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
 
-
 export default class FetchPlaylist extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
       tracks: "",
-      iduser: ""
     }
   }
 
   async componentDidMount() {
     let id = this.props.user.id
-    
-    console.log(`${urlApi}/users/${id}`);
-    
     try {
-      const response = await fetch(`${urlApi}/users/${id}`);
+      const response = await fetch(`${urlApi}/users/${id}/tracks`);
       const data = await response.json();
       this.setState({
         isLoading: false,
@@ -41,21 +32,13 @@ export default class FetchPlaylist extends React.Component {
   }
 
   render() {
-    const { tracks } = this.state;
-
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.containers}>
-          <ActivityIndicator />
-        </View>
-      )
-    }
+    const { tracks, isLoading } = this.state;
     return (
       <View style={styles.container}>
         <Image source={escalier} style={styles.mark} resizeMode="cover" />
-
-        <Text style={styles.title}>Titre</Text>
-
+        <Text style={styles.title}>Ma PlayList</Text>
+        {isLoading && <ActivityIndicator />}
+        {!isLoading && 
         <FlatList
           data={tracks}
           keyExtractor={({ id }, index) => index.toString()}
@@ -67,7 +50,7 @@ export default class FetchPlaylist extends React.Component {
               </TouchableOpacity>
             )
           }}
-        />
+        />}
       </View>
     );
   }
@@ -75,8 +58,7 @@ export default class FetchPlaylist extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundcolor: "grey",
-    marginTop: Constants.statusBarHeight,
+    // marginTop: Constants.statusBarHeight,
   },
   item: {
     backgroundColor: "#2f55a4",

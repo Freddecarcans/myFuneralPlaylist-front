@@ -56,9 +56,6 @@ class Connection extends React.Component {
 			.then((user) => {
 				userLogged(user);
 				if (user !== undefined) {
-					// AsyncStorage.setItem("email", user.email);
-					// AsyncStorage.setItem("id", user.iduser);
-					// AsyncStorage.setItem("token", user.token)
 					this.goToHomeAfterLogin();
 				}
 			})
