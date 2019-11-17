@@ -54,7 +54,7 @@ export default class FetchPlaylist extends React.Component {
   }
 
   displayButtonAddIfNeeded() {
-    const displayAddButton = this.props.tracks.length < 4;
+    const displayAddButton = this.props.tracks.length < 10;
     return displayAddButton ?
       <TouchableOpacity>
         <Button
