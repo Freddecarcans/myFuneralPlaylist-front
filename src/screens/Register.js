@@ -7,7 +7,7 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
-import  userLogged from '../actions/auth.action';
+import userLogged from '../actions/auth.action';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
 
@@ -17,25 +17,25 @@ class Register extends React.Component {
 		super(props);
 
 		this.state = {
+			email: this.props.navigation.state.params.email.email,
 			password: "",
 			verifypassword: "",
-			email: "",
 			name: "",
-			firstname:"",
+			firstname: "",
 		};
 	}
 
 	goToMyContacts() {
 		this.props.navigation.navigate('MyContacts');
 	}
-	
-	handleSubmit() {	
+
+	handleSubmit() {
 		const { email, password, name, firstname, contactA, contactB } = this.state;
 
 		Keyboard.dismiss();
 
-		if (this.state.password.length< 6) {
-			Alert.alert('Erreur mot de passe','Le mot de passe doit contenir au moins 6 caractères')
+		if (this.state.password.length < 6) {
+			Alert.alert('Erreur mot de passe', 'Le mot de passe doit contenir au moins 6 caractères')
 		}
 		else if (this.state.password !== this.state.verifypassword) {
 			Alert.alert('Erreur mot de passe', 'Les mots de passe ne sont pas identiques', [{ text: 'OK' }])
@@ -53,18 +53,16 @@ class Register extends React.Component {
 					res.json()
 					if (res.status === 201) {
 						Alert.alert('Compte créé avec succès',
-						'Enregistrez vos contacts',
-						[{text:"OK", onPress: () =>  this.goToMyContacts()}])
+							'Enregistrez vos contacts',
+							[{ text: "OK", onPress: () => this.goToMyContacts() }])
 						this.getUserInfo();
-						
+
 					}
 				})
 		}
 	}
-	
+
 	getUserInfo = async () => {
-		console.log('coucou');
-		
 		const { userLogged } = this.props;
 		const { email, password } = this.state;
 
@@ -73,7 +71,7 @@ class Register extends React.Component {
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			}),
-			body: JSON.stringify({email, password}),
+			body: JSON.stringify({ email, password }),
 		})
 			.then(res => {
 				if (res.status === 401) {
@@ -88,20 +86,17 @@ class Register extends React.Component {
 	}
 
 	render() {
-		const {email} = this.props.navigation.state.params.email;
-		
+		const { email } = this.props.navigation.state.params.email;
+
 		return (
-			
+
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Créer un compte</Text>
 				<View>
-					<Text style={styles.textemail}>Email saisi : {email} </Text>
-
 					<TextInput style={styles.signup}
-						placeholder="Veuillez ressaisir votre email"
-						onChangeText={(email) => this.setState({email})}
 						value={this.state.email}
+						editable={false}
 					>
 					</TextInput>
 
@@ -143,9 +138,9 @@ class Register extends React.Component {
 					</TouchableOpacity>
 
 				</View>
-				
+
 			</KeyboardAvoidingView>
-		
+
 		);
 	}
 }
