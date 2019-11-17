@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, View, TextInput, StyleSheet, Image } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Image, Alert, Keyboard } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { Button } from "react-native-elements";
 import { urlApi } from '../Config/constants';
@@ -10,21 +10,56 @@ class MyContacts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            contactA: "",
-            contactB: ""
+            contactA: this.props.contactA,
+            contactB: this.props.contactB
         }
     }
 
-    // test route
-    gototitle() {
-        this.props.navigation.navigate('Title');
+    componentDidMount() {
+        fetch(`${urlApi}/users/${this.props.loggedUser.id}`)
+            .then(response => response.json())
+            .then(data => {
+                this.props.fetchUserSuccess(data);
+            })
+            .catch(error => this.props.fetchUserError(error));
     }
 
+    // test route
+    goToHomeAfterLogin() {
+        this.props.navigation.navigate('HomeAfterLogin');
+    }
 
-    // function fetchContacts() {
-    //     let id = this.props.loggedUser.id;
+    saveContacts() {
+        let userId = this.props.loggedUser.id;
+        const { contactA, contactB } = this.state;
+        Keyboard.dismiss();
+        fetch(`${urlApi}/users/${userId}/contact`, {
+            method: "PUT",
+            headers: new Headers({
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify({ contactA, contactB }),
+        })
+            .then(res => {
+                res.json()
+                if (res.status === 201) {
+                    Alert.alert('Contacts créés avec succès', '', [
+                        {
+                            text: 'OK',
+                            onPress: () => {
+                                fetch(`${urlApi}/users/${userId}`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        this.props.fetchUserSuccess(data);
+                                    })
+                                    .catch(error => this.props.fetchUserError(error));
+                                this.goToHomeAfterLogin()
+                            }
+                        }])
+                }
+            })
+    }
 
-    // }
     render() {
         const { contactA, contactB } = this.state;
         return (
@@ -35,19 +70,19 @@ class MyContacts extends React.Component {
                     style={styles.signin}
                     placeholder="Contact 1"
                     value={contactA}
-                    onChangeText={(contactA) => this.setState({contactA})}
+                    onChangeText={(contactA) => this.setState({ contactA })}
                 />
 
                 <TextInput
                     style={styles.signin}
                     placeholder="Contact 2"
                     value={contactB}
-                    onChangeText={(contactB) => this.setState({contactB})}
+                    onChangeText={(contactB) => this.setState({ contactB })}
                 />
                 <Button
                     buttonStyle={styles.button}
                     title="Enregistrez ces Contacts"
-                    onPress={() => this.gototitle()}
+                    onPress={() => this.saveContacts()}
                 />
             </View>
 

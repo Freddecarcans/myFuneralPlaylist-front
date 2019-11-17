@@ -1,39 +1,38 @@
 
 const initialState = {
     loading: true,
-    err: '',
-    // email: "",
-    // name: "",
-    // firstname: "",
-    // username: "",
-    // contactA: "",
-    // contactB: "",
-    // playlisttitle: ""
-    user:[]
-
+    data: {
+        email: "",
+        name: "",
+        firstname: "",
+        username: "",
+        contactA: "",
+        contactB: ""
+    },
+    error: ''
 };
 
 const user = (state = initialState, action) => {
     switch (action.type) {
-        case "START_FETCH_USER": {
+        case "FETCH_USER_START": {
             return {
                 ...state,
                 loading: true
             }
         }
-        case "FETCH_SUCCESS_USER": {
+        case "FETCH_USER_SUCCESS": {
             return {
                 ...state,
                 loading: false,
-                err: "",
-                user: action.user.user
+                error: "",
+                data: action.user[0]
             }
         }
-        case "FETCH_ERROR_USER": {
+        case "FETCH_USER_ERROR": {
             return {
                 ...state,
                 loading: false,
-                err: action.err
+                error: action.error
             }
         }
         default:
