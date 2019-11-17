@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { Text, View, TextInput, StyleSheet, Image, FlatList, Alert, Keyboard } from 'react-native';
 import { scale } from 'react-native-size-matters';
@@ -11,154 +9,66 @@ class Title extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: "",
-			artist: "",
-			numberoftrack: 0,
-			count: 0,
-			tracks:"",
-			user_id: null
-		}
-	}
-
-	// Ajouter 1 au compteur
-	addNumberOfTrack() {
-		this.setState({
-			numberoftrack: this.state.numberoftrack + 1
-		})
-	}
-	addCount() {
-		this.setState({
-			count: this.state.count + 1
-		})
+			title: '',
+			artist: ''
+		};
 	}
 
 	// Enregistrer un titre dans la BDD
-
-	fetchTitle() {
+	addTrack() {
 		let user_id = this.props.loggedUser.id;
-		const { title, artist, numberoftrack } = this.state;
+		const { title, artist } = this.state;
 		Keyboard.dismiss();
 		fetch(`${urlApi}/users/title`, {
 			method: "POST",
 			headers: new Headers({
 				"Content-Type": "application/json"
 			}),
-			body: JSON.stringify({title, artist, user_id, numberoftrack}),
+			body: JSON.stringify({ title, artist, user_id }),
 		})
 			.then(res => {
 				res.json()
 				if (res.status === 201) {
-					Alert.alert('Titre ajouté avec succès','',[{text:'OK', onPress: () => this.componentDidMount()}])
+					Alert.alert('Titre ajouté avec succès', '', [
+						{
+							text: 'OK',
+							onPress: () => {
+								fetch(`${urlApi}/users/${user_id}/tracks`)
+									.then(response => response.json())
+									.then(data => {
+										this.props.playlistFetched(data);
+									})
+									.catch(error => this.props.playlistFetchError(error));
+								this.props.navigation.navigate('FetchPlaylist')
+							}
+						}])
 				}
 			})
 	}
 
-	onPressButton() {
-		this.addCount();
-		this.addNumberOfTrack();
-		this.fetchTitle();
-		// this.componentDidMount();
-	}
-	goToHomeAfterLogin() {
-		const { navigate } = this.props.navigation;
-		navigate('FetchPlaylist')
-	}
-
-	async componentDidMount() {
-
-		console.log(this.state);
-		
-		let id = this.props.loggedUser.id;
-		try {
-			const response = await fetch(`${urlApi}/users/${id}/tracks`);
-			const data = await response.json();
-			this.setState({
-				numberoftrack: data.length,
-				count: data.length + 1,
-				tracks: data,
-				user_id: id
-			});
-		}
-		catch (error) {
-			console.error(error);
-		}
-	}
-
 	render() {
-		console.log(this.state);
-		
-		const { title, artist, numberoftrack, tracks } = this.state;
 		return (
 			<View style={styles.container} >
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
-				
-				{this.state.count === 0 &&
-					<View>
-						<Text style={styles.title}>Vous n'avez enregistré aucun titre</Text>
-						<Button
-							buttonStyle={styles.button}
-							title="Commencer"
-							onPress={() => this.addCount()}
-						/>
-					</View>}
-				{this.state.count > 0 && this.state.count < 11 &&
-					<View>
-						<Text style={styles.title}>Vous avez enregistré {numberoftrack} titre(s)</Text>
-						<TextInput
-							style={styles.signin}
-							placeholder="Titre"
-							value={title}
-							onChangeText={(title) => this.setState({ title })}
-						/>
+				<Text style={styles.title}>Ajouter un morceau</Text>
+				<TextInput
+					style={styles.signin}
+					placeholder="Titre"
+					value={this.state.title}
+					onChangeText={(title) => this.setState({ title })}
+				/>
 
-						<TextInput
-							style={styles.signin}
-							placeholder="Artiste"
-							value={artist}
-							onChangeText={(artist) => this.setState({ artist })}
-						/>
-						<Button
-							buttonStyle={styles.button}
-							title="Enregistrez ce titre"
-							onPress={() => this.onPressButton()}
-						/>
-						<FlatList
-							data={tracks}
-							keyExtractor={(index) => {index.toString()}}
-							renderItem={({ item }) => {
-								return (
-									<View>
-										<Text style={styles.itemText}> Artiste:{item.artist} / Titre: {item.title}</Text>
-									</View>
-								)
-							}}
-						/>
-					</View>
-				}
-				{this.state.count === 11 &&
-					<View>
-						<Text style={styles.title}>Vous avez enregistrés tous vos titres</Text>
-						
-						<FlatList
-							data={tracks}
-							keyExtractor={(index) => {index.toString()}}
-							renderItem={({ item }) => {
-								return (
-									<View>
-										<Text style={styles.itemText}> Artiste:{item.artist} / Titre: {item.title}</Text>
-									</View>
-								)
-							}}
-						/>
-						<Button
-							buttonStyle={styles.button}
-							title="Continuer"
-							onPress={() => this.goToHomeAfterLogin()}
-						/>
-					</View>
-
-				}
-
+				<TextInput
+					style={styles.signin}
+					placeholder="Artiste"
+					value={this.state.artist}
+					onChangeText={(artist) => this.setState({ artist })}
+				/>
+				<Button
+					buttonStyle={styles.button}
+					title="Enregistrez ce titre"
+					onPress={() => this.addTrack()}
+				/>
 			</View>
 
 		);
