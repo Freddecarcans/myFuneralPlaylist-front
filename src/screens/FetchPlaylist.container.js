@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import FetchPlaylist from './FetchPlaylist';
 import { bindActionCreators } from 'redux';
-import { playlistFetched, playlistFetch, playlistFetchError } from '../actions/tracks.action';
+import { playlistFetched, playlistFetch, playlistFetchError, trackDeleted } from '../actions/tracks.action';
 
 const mapStateToProps = state => ({
   loggedUser: state.auth,
@@ -13,7 +13,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({
     playlistFetched,
     playlistFetch,
-    playlistFetchError
+    playlistFetchError,
+    trackDeleted
   }, dispatch)
 
 export default connect(

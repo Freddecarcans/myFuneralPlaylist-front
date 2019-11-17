@@ -13,3 +13,8 @@ export const playlistFetchError = (error) => ({
   error
 });
 
+export const trackDeleted = (idTitle) => ({
+  type: "TRACK_DELETED",
+  idTitle
+});
+

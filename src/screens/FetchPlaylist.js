@@ -37,8 +37,13 @@ export default class FetchPlaylist extends React.Component {
     fetch(`${urlApi}/users/${this.props.loggedUser.id}/tracks/${idtitle}`, {
       method: 'DELETE'
     })
-      .then(response => response.json())
+      .then(response => {
+        response.json();
+        this.props.trackDeleted(idtitle);
+      })
       .catch(error => this.props.playlistFetchError(error));
+
+
   }
 
   render() {

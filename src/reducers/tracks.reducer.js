@@ -1,3 +1,5 @@
+import _filter from 'lodash/filter';
+
 const initialState = { data: [], loading: false, error: '' };
 
 const tracks = (state = initialState, action) => {
@@ -22,6 +24,12 @@ const tracks = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.error
+      };
+    }
+    case 'TRACK_DELETED': {
+      return {
+        ...state,
+        data: _filter([...state.data], track => (track.idtitle !== action.idTitle))
       };
     }
     default:
