@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   FlatList, ActivityIndicator, Text, View,
-  TouchableOpacity, StyleSheet, Image
+  TouchableOpacity, StyleSheet, Image, Button, Alert
 } from 'react-native';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
@@ -27,6 +27,20 @@ export default class FetchPlaylist extends React.Component {
     }
   }
 
+  handleDelete(idtitle) {
+    Alert.alert('', 'Voulez-vous supprimer ce morceau ?',
+      [{ text: 'Non' }, { text: 'Oui', onPress: () => this.deleteTrack(idtitle) }]
+    );
+  }
+
+  deleteTrack(idtitle) {
+    fetch(`${urlApi}/users/${this.props.loggedUser.id}/tracks/${idtitle}`, {
+      method: 'DELETE'
+    })
+      .then(response => response.json())
+      .catch(error => this.props.playlistFetchError(error));
+  }
+
   render() {
     const { tracks, loading, error } = this.props;
     return (
@@ -40,7 +54,7 @@ export default class FetchPlaylist extends React.Component {
             keyExtractor={({ id }, index) => index.toString()}
             renderItem={({ item }) => {
               return (
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={styles.item} onPress={toto => this.handleDelete(item.idtitle)}>
                   <Text style={styles.itemText}> Artiste:{item.artist}</Text>
                   <Text style={styles.itemText}> Titre: {item.title}</Text>
                 </TouchableOpacity>
