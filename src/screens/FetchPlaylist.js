@@ -3,28 +3,24 @@ import {
   FlatList, ActivityIndicator, Text, View,
   TouchableOpacity, StyleSheet, Image
 } from 'react-native';
-import Constants from 'expo-constants';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
 
 export default class FetchPlaylist extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLoading: true,
-      tracks: "",
-    }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     let id = this.props.loggedUser.id
     try {
-      const response = await fetch(`${urlApi}/users/${id}/tracks`);
-      const data = await response.json();
-      this.setState({
-        isLoading: false,
-        tracks: data,
-      });
+      this.props.playlistFetch();
+      const response = fetch(`${urlApi}/users/${id}/tracks`)
+        .then(response => response.json())
+        .then(data => {
+          this.props.playlistFetched(data);
+        })
+        .catch(error => this.props.playlistFetchError(error));
     }
     catch (error) {
       console.error(error);
@@ -32,25 +28,25 @@ export default class FetchPlaylist extends React.Component {
   }
 
   render() {
-    const { tracks, isLoading } = this.state;
+    const { tracks, loading, error } = this.props;
     return (
       <View style={styles.container}>
         <Image source={escalier} style={styles.mark} resizeMode="cover" />
         <Text style={styles.title}>Ma PlayList</Text>
-        {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
-        {!isLoading && 
-        <FlatList
-          data={tracks}
-          keyExtractor={({ id }, index) => index.toString()}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity style={styles.item}>
-                <Text style={styles.itemText}> Artiste:{item.artist}</Text>
-                <Text style={styles.itemText}> Titre: {item.title}</Text>
-              </TouchableOpacity>
-            )
-          }}
-        />}
+        {loading && <ActivityIndicator size="large" color="#0000ff" />}
+        {!loading &&
+          <FlatList
+            data={tracks}
+            keyExtractor={({ id }, index) => index.toString()}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity style={styles.item}>
+                  <Text style={styles.itemText}> Artiste:{item.artist}</Text>
+                  <Text style={styles.itemText}> Titre: {item.title}</Text>
+                </TouchableOpacity>
+              )
+            }}
+          />}
       </View>
     );
   }

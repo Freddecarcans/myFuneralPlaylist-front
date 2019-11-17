@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import auth from './auth.reducer';
-import user from './user.reducer';
+import tracks from './tracks.reducer';
 
 
 
 
 const allReducers = combineReducers({
     auth,
-    user
+    tracks
 
 });
 
