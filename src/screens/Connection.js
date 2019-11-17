@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { View, TextInput, StyleSheet, Keyboard, Image, Text, AsyncStorage } from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
+import { View, TextInput, StyleSheet, Keyboard, Image, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
@@ -19,8 +18,8 @@ class Connection extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: "",
-			password: "",
+			email: "pipi@mail.com",
+			password: "pipi",
 		}
 	}
 
@@ -125,8 +124,6 @@ const styles = StyleSheet.create({
 		marginLeft: 5,
 		marginRight: 5,
 		height: 50,
-		// borderColor: '#000000',
-		// borderWidth: 1,
 		paddingLeft: 5,
 
 	},

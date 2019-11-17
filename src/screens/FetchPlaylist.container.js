@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import FetchPlaylist from './FetchPlaylist';
 
 const mapStateToProps = state => ({
-    user: state.auth
+    loggedUser: state.auth
   })
   
 export default connect(

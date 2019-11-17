@@ -3,76 +3,105 @@ import React from 'react';
 
 import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Image, Keyboard, Alert } from 'react-native';
 import { Button } from "react-native-elements";
-import { TouchableOpacity } from 'react-native-gesture-handler';
-// import noInternetStyles from "../../styles/noInternet.style";
-// import {StackActions} from "react-navigation";
-
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
+import  userLogged from '../actions/auth.action';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
 
 
-
-
 class Register extends React.Component {
-	static navigationOptions = {
-		header: null,
-
-	};
-
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			password: "",
 			verifypassword: "",
-			email: ""
+			email: "",
+			name: "",
+			firstname:"",
 		};
-
-	}
-	goToMyaccount() {
-		const { navigate } = this.props.navigation;
-		navigate('MyAccount');
 	}
 
-	async handleSubmit() {
-		const { email, password, verifypassword } = this.state;
+	goToMyContacts() {
+		this.props.navigation.navigate('MyContacts');
+	}
+	
+	handleSubmit() {	
+		const { email, password, name, firstname, contactA, contactB } = this.state;
 
 		Keyboard.dismiss();
 
-		if (this.state.password !== this.state.verifypassword) {
+		if (this.state.password.length< 6) {
+			Alert.alert('Erreur mot de passe','Le mot de passe doit contenir au moins 6 caractères')
+		}
+		else if (this.state.password !== this.state.verifypassword) {
 			Alert.alert('Erreur mot de passe', 'Les mots de passe ne sont pas identiques', [{ text: 'OK' }])
 		} else {
-			await fetch(`${urlApi}/auth/signup`, {
+			fetch(`${urlApi}/auth/signup`, {
 				method: "POST",
 				headers: new Headers({
 					"Content-Type": "application/json",
 					'Accept': 'application/json'
 				}),
-				body: JSON.stringify({ email, password }),
+				body: JSON.stringify({ email, password, name, firstname, contactA, contactB }),
 
 			})
 				.then(res => {
 					res.json()
 					if (res.status === 201) {
-						// this.goToCreatePlayList();
+						Alert.alert('Compte créé avec succès',
+						'Enregistrez vos contacts',
+						[{text:"OK", onPress: () =>  this.goToMyContacts()}])
+						this.getUserInfo();
+						
 					}
 				})
 		}
 	}
 	
+	getUserInfo = async () => {
+		console.log('coucou');
+		
+		const { userLogged } = this.props;
+		const { email, password } = this.state;
+
+		await fetch(`${urlApi}/auth/signin`, {
+			method: 'POST',
+			headers: new Headers({
+				'Content-Type': 'application/json',
+			}),
+			body: JSON.stringify({email, password}),
+		})
+			.then(res => {
+				if (res.status === 401) {
+					alert('Erreur d\'authentification');
+				} else if (res.status === 200) {
+					return res.json();
+				}
+			})
+			.then((user) => {
+				userLogged(user);
+			})
+	}
 
 	render() {
-		const { email } = this.props.navigation.state.params.email;
+		const {email} = this.props.navigation.state.params.email;
+		
 		return (
-
-			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled >
+			
+			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Créer un compte</Text>
-				<View style={styles.container2}>
+				<View>
+					<Text style={styles.textemail}>Email saisi : {email} </Text>
+
 					<TextInput style={styles.signup}
-						placeholder="email"
-						value={email}
+						placeholder="Veuillez ressaisir votre email"
+						onChangeText={(email) => this.setState({email})}
+						value={this.state.email}
 					>
 					</TextInput>
 
@@ -90,13 +119,6 @@ class Register extends React.Component {
 					>
 					</TextInput>
 
-					{/* <TextInput style={styles.signup}
-						placeholder="username"
-						onChangeText={(username) => this.setState({ username })}
-						value={this.state.username}
-					>
-					</TextInput>
-
 					<TextInput style={styles.signup}
 						placeholder="name"
 						onChangeText={(name) => this.setState({ name })}
@@ -109,7 +131,7 @@ class Register extends React.Component {
 						onChangeText={(firstname) => this.setState({ firstname })}
 						value={this.state.firstname}
 					>
-					</TextInput> */}
+					</TextInput>
 
 					<TouchableOpacity>
 						<Button
@@ -121,14 +143,15 @@ class Register extends React.Component {
 					</TouchableOpacity>
 
 				</View>
+				
 			</KeyboardAvoidingView>
+		
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "grey",
 		flex: 1
 	},
 	container2: {
@@ -141,7 +164,7 @@ const styles = StyleSheet.create({
 		paddingVertical: scale(8),
 		alignItems: "center",
 		justifyContent: "center",
-		marginBottom: scale(14),
+		marginBottom: 10,
 		borderRadius: 50,
 		paddingLeft: scale(20),
 		color: "#ffffff"
@@ -166,7 +189,13 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		color: "#ffffff",
 		marginTop: 25
+	},
+	textemail: {
+		marginLeft: scale(24),
+		fontSize: 15,
+		color: "#ffffff",
+
 	}
 });
-
-export default Register;
+const mdtp = dispatch => bindActionCreators({ userLogged }, dispatch);
+export default connect(mdtp, null)(Register);

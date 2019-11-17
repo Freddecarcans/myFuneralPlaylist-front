@@ -24,13 +24,6 @@ const user = (state = initialState, action) => {
         case "FETCH_SUCCESS_USER": {
             return {
                 ...state,
-                // email: action.user.email,
-                // name: action.user.name,
-                // firstname: action.user.firstname,
-                // username: action.user.username,
-                // contactA: action.user.contactA,
-                // contactB: action.user.contactB,
-                // playlisttitle: action.user.playlisttitle,
                 loading: false,
                 err: "",
                 user: action.user.user

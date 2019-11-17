@@ -39,7 +39,7 @@ class FetchUser extends React.Component {
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled >
                 <Image source={escalier} style={styles.mark} resizeMode="cover" />
                 <Text style={styles.title}>Mon compte</Text>
-                {loading && <ActivityIndicator />}
+                {loading && <ActivityIndicator size="large" color="#0000ff" />}
                 {!loading &&
 
                     <View style={styles.container2}>

@@ -9,6 +9,10 @@ import EmailScreen from '../screens/EmailScreen';
 import HomeAfterLogin from '../screens/HomeAfterLogin';
 import MyAccount from '../screens/MyAccount';
 import FetchUserContainer from '../screens/FetchUser.container';
+import TitleContainer from '../screens/Title.container';
+import MyContactsContainer from '../screens/MyContacts.container';
+import Title from '../screens/Title';
+import MyContacts from '../screens/MyContacts';
 
 
 const RouterStackNavigator = createStackNavigator({
@@ -42,7 +46,7 @@ const RouterStackNavigator = createStackNavigator({
 	Connection: {
 		screen: Connection,
 		navigationOptions: {
-			title: 'Connexion'
+			header: null
 		}
 	},
 	CreatePlayList: {
@@ -59,6 +63,18 @@ const RouterStackNavigator = createStackNavigator({
 	},
 	FetchPlaylist: {
 		screen: FetchPlaylistContainer,
+		navigationOptions: {
+			header: null
+		}
+	},
+	Title: {
+		screen: TitleContainer,
+		navigationOptions: {
+			header: null
+		}
+	},
+	MyContacts: {
+		screen: MyContactsContainer,
 		navigationOptions: {
 			header: null
 		}

@@ -17,7 +17,7 @@ export default class FetchPlaylist extends React.Component {
   }
 
   async componentDidMount() {
-    let id = this.props.user.id
+    let id = this.props.loggedUser.id
     try {
       const response = await fetch(`${urlApi}/users/${id}/tracks`);
       const data = await response.json();
@@ -37,7 +37,7 @@ export default class FetchPlaylist extends React.Component {
       <View style={styles.container}>
         <Image source={escalier} style={styles.mark} resizeMode="cover" />
         <Text style={styles.title}>Ma PlayList</Text>
-        {isLoading && <ActivityIndicator />}
+        {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
         {!isLoading && 
         <FlatList
           data={tracks}
@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     textAlign: "center",
-    color: "#ffffff"
+    color: "#ffffff",
+    marginTop: 25
   },
   mark: {
     position: "absolute",
