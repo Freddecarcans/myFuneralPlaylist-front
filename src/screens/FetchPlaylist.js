@@ -1,8 +1,10 @@
 import React from 'react';
 import {
   FlatList, ActivityIndicator, Text, View,
-  TouchableOpacity, StyleSheet, Image, Button, Alert
+  TouchableOpacity, StyleSheet, Image, Alert
 } from 'react-native';
+import { Button } from "react-native-elements";
+import { scale } from 'react-native-size-matters';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
 
@@ -46,6 +48,23 @@ export default class FetchPlaylist extends React.Component {
 
   }
 
+  handleAdd() {
+    this.props.navigation.navigate('Title');
+
+  }
+
+  displayButtonAddIfNeeded() {
+    const displayAddButton = this.props.tracks.length < 4;
+    return displayAddButton ?
+      <TouchableOpacity>
+        <Button
+          buttonStyle={styles.button}
+          title="Ajouter un morceau"
+          onPress={() => this.handleAdd()}
+        />
+      </TouchableOpacity> : null
+  }
+
   render() {
     const { tracks, loading, error } = this.props;
     return (
@@ -54,18 +73,21 @@ export default class FetchPlaylist extends React.Component {
         <Text style={styles.title}>Ma PlayList</Text>
         {loading && <ActivityIndicator size="large" color="#0000ff" />}
         {!loading &&
-          <FlatList
-            data={tracks}
-            keyExtractor={({ id }, index) => index.toString()}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity style={styles.item} onPress={toto => this.handleDelete(item.idtitle)}>
-                  <Text style={styles.itemText}> Artiste:{item.artist}</Text>
-                  <Text style={styles.itemText}> Titre: {item.title}</Text>
-                </TouchableOpacity>
-              )
-            }}
-          />}
+          <View>
+            <FlatList
+              data={tracks}
+              keyExtractor={({ id }, index) => index.toString()}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity style={styles.item} onPress={toto => this.handleDelete(item.idtitle)}>
+                    <Text style={styles.itemText}> Artiste:{item.artist}</Text>
+                    <Text style={styles.itemText}> Titre: {item.title}</Text>
+                  </TouchableOpacity>
+                )
+              }}
+            />
+            {this.displayButtonAddIfNeeded()}
+          </View>}
       </View>
     );
   }
@@ -97,5 +119,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: "100%"
+  },
+  button: {
+    backgroundColor: "#2f55a4",
+    marginLeft: scale(50),
+    marginRight: scale(50),
+    paddingVertical: scale(8),
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: scale(24),
+    borderRadius: 50
   }
 });

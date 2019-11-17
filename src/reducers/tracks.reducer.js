@@ -1,6 +1,6 @@
 import _filter from 'lodash/filter';
 
-const initialState = { data: [], loading: false, error: '' };
+const initialState = { data: [], loading: true, error: '' };
 
 const tracks = (state = initialState, action) => {
   switch (action.type) {
