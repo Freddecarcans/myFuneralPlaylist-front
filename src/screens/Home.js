@@ -21,7 +21,8 @@ function Home(props) {
 			<View style={styles.container}>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.titlehome}>My Funeral Playlist</Text>
-				<Text style={styles.contenu}>La première application qui enregistre vos dernières volontés musicales</Text>
+				<Text style={styles.contenu}>L'unique application pour transmettre</Text>
+				<Text style={styles.contenu2}>ses dernières volontés musicales</Text>
 				<View style={styles.container2}>
 					<TouchableOpacity>
 						<Button
@@ -111,6 +112,12 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		textAlign: "center",
 		marginTop: 100
+	},
+	contenu2: {
+		color: "#2f55a4",
+		fontSize: 15,
+		textAlign: "center",
+		marginTop: 0
 	}
 });
 

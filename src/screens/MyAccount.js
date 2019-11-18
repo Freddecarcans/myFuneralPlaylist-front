@@ -71,7 +71,7 @@ class FetchUser extends React.Component {
                         <TouchableOpacity>
                             <Button
                                 buttonStyle={styles.button}
-                                onPress={() => Alert.alert('Ce bouton n\'est pas encore branché')}
+                                // onPress={() => Alert.alert('Ce bouton n\'est pas encore branché')}
                                 title="Modifier mes informations"
                                 titleStyle={styles.signinText}
                             />
