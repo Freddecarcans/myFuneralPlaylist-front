@@ -20,7 +20,6 @@ function EmailScreen(props) {
         try {
             const response = await fetch(`${urlApi}/auth/email/${email}`);
             const data = await response.json();
-            console.log(data);
 
             if (data[0] && data !== []) {
                 Alert.alert('Email déjà enregistré', 'Essayez une autre adresse', [{ text: 'OK' }])
@@ -38,6 +37,7 @@ function EmailScreen(props) {
 
 
     return (
+        
         <View style={styles.container}>
             <Image source={escalier} style={styles.mark} resizeMode="cover" />
             <Text style={styles.title}>Entrer une adresse email</Text>

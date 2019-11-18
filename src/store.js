@@ -7,7 +7,7 @@ const middlewares = [ReduxThunk];
 
 const store = createStore(
      allReducers,
-    composeWithDevTools(applyMiddleware(...middlewares)),
+    composeWithDevTools(applyMiddleware(ReduxThunk)),
 );
 
 

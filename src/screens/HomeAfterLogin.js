@@ -24,13 +24,11 @@ class HomeAfterLogin extends React.Component {
 	}
 	goToMyAccount() {
 		const { navigate } = this.props.navigation;
-		navigate('MyAccount');
+		navigate('FetchUser');
 	}
-	async componentDidMount() {
-		// let userInfo = await AsyncStorage.getItem("email");
-		// let info = JSON.parse(userInfo);
-		// console.log(info);
-		
+	goToMyContacts() {
+		const { navigate } = this.props.navigation;
+		navigate('MyContacts')
 	}
 	render() {
 		return (
@@ -40,19 +38,24 @@ class HomeAfterLogin extends React.Component {
 				<View style={styles.container2}>
 					<TouchableOpacity
 						style={styles.signup}
-						onPress={this.goToMyAccount.bind(this)}
-					>
-						<Text style={styles.signupText}>Mon Compte</Text>
-
-					</TouchableOpacity>
-
-					<TouchableOpacity
-						style={styles.signup}
-						onPress={this.goToPlayList.bind(this)}
+						onPress={() => this.goToPlayList()}
 					>
 						<Text style={styles.signupText}>Ma Playlist</Text>
-
 					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.signup}
+						onPress={() => this.goToMyContacts()}
+					>
+						<Text style={styles.signupText}>Mes Contacts</Text>
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.signup}
+						onPress={() => this.goToMyAccount()}
+					>
+						<Text style={styles.signupText}>Mon Compte</Text>
+					</TouchableOpacity>
+
+
 				</View>
 			</View>
 		);

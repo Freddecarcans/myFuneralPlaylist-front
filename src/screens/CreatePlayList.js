@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AsyncStorage, View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
 import { Text } from 'react-native';
@@ -10,14 +10,18 @@ class CreatePlayList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			playlist: []
-
+			title:"",
+			artist:"",
+			count: null
 		};
 
 	}
+	addTrack = () => {
+	
+	}
 	componentDidMount() {
 		
-			console.log(AsyncStorage.getItem('token'));
+			
 	}
 	render() {
 		return (
@@ -38,7 +42,6 @@ class CreatePlayList extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "grey",
 		flex: 1
 	},
 	container2: {

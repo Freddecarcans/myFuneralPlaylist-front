@@ -9,21 +9,14 @@ import escalier from './images/escalier.jpg';
 const { width } = Dimensions.get("window");
 
 
-class Home extends React.Component {
-	static navigationOptions = {
-		header: null,
-	};
-
-	goToConnection() {
-		const { navigate } = this.props.navigation;
-		navigate('Connection');
+function Home(props) {
+	
+	const goToConnection = () => {
+		props.navigation.navigate('Connection');
 	}
-	goToEmailScreen() {
-		const { navigate } = this.props.navigation;
-		navigate('EmailScreen')
+	const goToEmailScreen = () => {
+		props.navigation.navigate('EmailScreen')
 	}
-
-	render() {
 		return (
 			<View style={styles.container}>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
@@ -32,13 +25,13 @@ class Home extends React.Component {
 					<TouchableOpacity>
 						<Button
 							buttonStyle={styles.signup}
-							onPress={() => { this.goToEmailScreen() }}
+							onPress={goToEmailScreen}
 							title="S' inscrire"
 							titleStyle={styles.signupText}
 						/>
 					</TouchableOpacity>
 					<TouchableOpacity
-						onPress={() => { this.goToConnection() }}
+						onPress={goToConnection}
 						style={styles.signin}
 					>
 						<Text style={styles.signinText}>Déjà enregistré, SE CONNECTER</Text>
@@ -49,7 +42,7 @@ class Home extends React.Component {
 		);
 	}
 
-}
+
 
 const styles = StyleSheet.create({
 	container: {

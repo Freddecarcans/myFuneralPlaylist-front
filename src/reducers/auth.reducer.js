@@ -1,27 +1,33 @@
 // import AsyncStorage from '@react-native-community/async-storage';
-import AsyncStorage from 'react-native';
+// import AsyncStorage from 'react-native';
 
-const tokenStorage = async () => {
-  try {
-    await AsyncStorage.getItem('token')
-  } catch (error) {
-    console.log(error.message);  
-  }
-}
-const emailStorage = async () => {
-  try{
-    await AsyncStorage.getItem('email')
-  } catch (error) {
-    console.log(error.message);
+// const tokenStorage = async () => {
+//   try {
+//     await AsyncStorage.getItem('token')
+//   } catch (error) {
+//     console.log(error.message);  
+//   }
+// }
+// const emailStorage = async () => {
+//   try{
+//     await AsyncStorage.getItem('email')
+//   } catch (error) {
+//     console.log(error.message);
     
-  }
-}
+//   }
+// }
+
+// const initialState = {
+//   token: tokenStorage,
+//   email: emailStorage,
+//   id: null
+// };
 
 const initialState = {
-  token: tokenStorage,
-  email: emailStorage,
+  token: "",
+  email:"",
   id: null
-};
+}
 
 const user = (state = initialState, action) => {
   switch (action.type) {
