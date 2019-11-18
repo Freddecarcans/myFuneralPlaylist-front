@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button } from "react-native-elements";
+import { Button, Header } from "react-native-elements";
 import { userLogged } from '../actions/auth.action';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
@@ -43,7 +43,7 @@ class Connection extends React.Component {
 			headers: new Headers({
 				'Content-Type': 'application/json',
 			}),
-			body: JSON.stringify({email, password}),
+			body: JSON.stringify({ email, password }),
 		})
 			.then(res => {
 				if (res.status === 401) {
@@ -66,14 +66,14 @@ class Connection extends React.Component {
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Connexion</Text>
 				<View style={styles.container2}>
-
+					<Text style={styles.text}>Email</Text>
 					<TextInput style={styles.signin}
 						placeholder="email"
 						onChangeText={email => this.setState({ email })}
 						value={this.state.email}
 					>
 					</TextInput>
-
+					<Text style={styles.text}>Mot de passe</Text>
 					<TextInput style={styles.signin}
 						placeholder="password"
 						onChangeText={password => this.setState({ password })}
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		marginBottom: scale(24),
-		marginTop: scale(24),
+		// marginTop: scale(24),
 		borderRadius: 50,
 		paddingLeft: scale(20),
 		color: "#ffffff"
@@ -146,7 +146,11 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		textAlign: "center",
 		color: "#ffffff",
-		marginTop: 25
+		marginTop: 50
+	},
+	text: {
+		color: "#0059b3",
+		marginLeft: scale(50)
 	}
 });
 

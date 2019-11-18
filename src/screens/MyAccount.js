@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     ActivityIndicator, Text, View, SafeAreaView, TextInput,
-    TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView
+    TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView, Alert
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import Constants from 'expo-constants';
@@ -13,27 +13,31 @@ import escalier from './images/escalier.jpg';
 class FetchUser extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            user: "",
-            loading: true
-        };
     }
     async componentDidMount() {
         const id = this.props.loggedUser.id;
         try {
-            const response = await fetch(`${urlApi}/users/${id}`);
-            const data = await response.json();
-            this.setState({
-                loading: false,
-                user: data
+            // const response = await fetch(`${urlApi}/users/${id}`);
+            // const data = await response.json();
+            // this.setState({
+            //     loading: false,
+            //     user: data
+            this.props.fetchUserStart();
+      const response = fetch(`${urlApi}/users/${id}`)
+        .then(response => response.json())
+        .then(data => {
+          this.props.fetchUserSuccess(data);
             });
         }
         catch (error) {
-            console.error(error);
+            console.error(error => this.props.fetchUserError(error));
         }
     }
+    // goToRegister () {
+       
+    // }
     render() {
-        const { user, loading } = this.state;
+        const { user, loading } = this.props;
         return (
 
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled >
@@ -43,30 +47,31 @@ class FetchUser extends React.Component {
                 {!loading &&
 
                     <View style={styles.container2}>
+                        <Text style={styles.text}>Email</Text>
                         <TouchableOpacity style={styles.item}>
-                            <Text style={styles.itemText}>{user[0].email}</Text>
+                            <Text style={styles.itemText}>{user.email}</Text>
                         </TouchableOpacity>
-
+                        <Text style={styles.text}>Nom</Text>
                         <TouchableOpacity style={styles.item}>
-                            <Text style={styles.itemText}>{user[0].name}</Text>
+                            <Text style={styles.itemText}>{user.name}</Text>
                         </TouchableOpacity>
-
+                        <Text style={styles.text}>Prénom</Text>
                         <TouchableOpacity style={styles.item}>
-                            <Text style={styles.itemText}>{user[0].firstname}</Text>
+                            <Text style={styles.itemText}>{user.firstname}</Text>
                         </TouchableOpacity>
-
+                        <Text style={styles.text}>Contact 1</Text>
                         <TouchableOpacity style={styles.item}>
-                            <Text style={styles.itemText}>{user[0].contactA}</Text>
+                            <Text style={styles.itemText}>{user.contactA}</Text>
                         </TouchableOpacity>
-
+                        <Text style={styles.text}>Contact 2</Text>
                         <TouchableOpacity style={styles.item}>
-                            <Text style={styles.itemText}>{user[0].contactB}</Text>
+                            <Text style={styles.itemText}>{user.contactB}</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity>
                             <Button
                                 buttonStyle={styles.button}
-                                // onPress={this.handleSubmit.bind(this)}
+                                onPress={() => Alert.alert('Ce bouton n\'est pas encore branché')}
                                 title="Modifier mes informations"
                                 titleStyle={styles.signinText}
                             />
@@ -89,7 +94,8 @@ const styles = StyleSheet.create({
     item: {
         backgroundColor: "#2f55a4",
         padding: 10,
-        marginVertical: 20,
+        marginTop: 5,
+        marginBottom: 20,
         marginHorizontal: 20,
         borderRadius: 50
     },
@@ -116,7 +122,11 @@ const styles = StyleSheet.create({
         fontSize: 25,
         textAlign: "center",
         color: "#ffffff",
-        marginTop: 25
+        marginTop: 50
+    },
+    text: {
+        color: "#0059b3",
+		marginLeft: scale(50)  
     }
 });
 

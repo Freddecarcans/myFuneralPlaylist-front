@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import FetchPlaylist from './FetchPlaylist';
+import FetchPlaylist from './MyPlaylist';
 import { bindActionCreators } from 'redux';
 import { playlistFetched, playlistFetch, playlistFetchError, trackDeleted } from '../actions/tracks.action';
 

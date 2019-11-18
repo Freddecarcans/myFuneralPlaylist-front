@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		textAlign: "center",
 		color: "#ffffff",
-		marginTop: 25
+		marginTop: 50
 	},
 	textemail: {
 		marginLeft: scale(24),

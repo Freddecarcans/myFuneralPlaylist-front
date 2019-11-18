@@ -2,10 +2,10 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from '../screens/Home';
 import Register from '../screens/Register';
 import Connection from '../screens/Connection';
-import FetchPlaylistContainer from '../screens/FetchPlaylist.container';
+import MyPlaylistContainer from '../screens/MyPlaylist.container';
 import EmailScreen from '../screens/EmailScreen';
 import HomeAfterLogin from '../screens/HomeAfterLogin';
-import FetchUserContainer from '../screens/FetchUser.container';
+import MyAccountContainer from '../screens/MyAccount.container';
 import TitleContainer from '../screens/Title.container';
 import MyContactsContainer from '../screens/MyContacts.container';
 
@@ -41,14 +41,14 @@ const RouterStackNavigator = createStackNavigator({
 			header: null
 		}
 	},
-	FetchUser: {
-		screen: FetchUserContainer,
+	MyAccount: {
+		screen: MyAccountContainer,
 		navigationOptions: {
 			header: null
 		}
 	},
-	FetchPlaylist: {
-		screen: FetchPlaylistContainer,
+	MyPlaylist: {
+		screen: MyPlaylistContainer,
 		navigationOptions: {
 			header: null
 		}

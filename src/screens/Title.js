@@ -39,7 +39,7 @@ class Title extends React.Component {
 										this.props.playlistFetched(data);
 									})
 									.catch(error => this.props.playlistFetchError(error));
-								this.props.navigation.navigate('FetchPlaylist')
+								this.props.navigation.navigate('MyPlaylist')
 							}
 						}])
 				}
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		textAlign: "center",
 		color: "#ffffff",
-		marginTop: 25
+		marginTop: 50
 	},
 	itemText: {
 		textAlign: "center",
