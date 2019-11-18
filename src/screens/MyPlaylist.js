@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   FlatList, ActivityIndicator, Text, View,
-  TouchableOpacity, StyleSheet, Image, Alert,ScrollView
+  TouchableOpacity, StyleSheet, Image, Alert, ScrollView
 } from 'react-native';
 import { Button } from "react-native-elements";
 import { scale } from 'react-native-size-matters';
@@ -68,27 +68,31 @@ export default class FetchPlaylist extends React.Component {
   render() {
     const { tracks, loading, error } = this.props;
     return (
-      <ScrollView style={styles.container}>
-        <Image source={escalier} style={styles.mark} resizeMode="cover" />
-        <Text style={styles.title}>Ma PlayList</Text>
-        {loading && <ActivityIndicator size="large" color="#0000ff" />}
-        {!loading &&
-          <View>
-            <FlatList
-              data={tracks}
-              keyExtractor={({ id }, index) => index.toString()}
-              renderItem={({ item }) => {
-                return (
-                  <TouchableOpacity style={styles.item} onPress={toto => this.handleDelete(item.idtitle)}>
-                    <Text style={styles.itemText}> Artiste:{item.artist}</Text>
-                    <Text style={styles.itemText}> Titre: {item.title}</Text>
-                  </TouchableOpacity>
-                )
-              }}
-            />
-            {this.displayButtonAddIfNeeded()}
-          </View>}
-      </ScrollView>
+
+      <View style={styles.container}>
+        <ScrollView >
+          <Image source={escalier} style={styles.mark} resizeMode="cover" />
+          <Text style={styles.title}>Ma PlayList</Text>
+          {loading && <ActivityIndicator size="large" color="#0000ff" />}
+          {!loading &&
+            <View>
+              <FlatList
+                data={tracks}
+                keyExtractor={({ id }, index) => index.toString()}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity style={styles.item} onPress={toto => this.handleDelete(item.idtitle)}>
+                      <Text style={styles.itemText}> Artiste:{item.artist}</Text>
+                      <Text style={styles.itemText}> Titre: {item.title}</Text>
+                    </TouchableOpacity>
+                  )
+                }}
+              />
+              {this.displayButtonAddIfNeeded()}
+            </View>}
+        </ScrollView>
+      </View>
+      // 
     );
   }
 }
