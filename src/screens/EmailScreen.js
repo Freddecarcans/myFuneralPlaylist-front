@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Keyboard, Image, Text, AsyncStorage, ActivityIndicator, Alert } from 'react-native';
+import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { Button } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -31,6 +31,7 @@ function EmailScreen(props) {
                 goToRegister();
             }
         } catch (error) {
+            Alert.alert("Une erreur s\'est produite, veuillez réessayer" )
             console.error(error)
         }
     }
@@ -42,7 +43,7 @@ function EmailScreen(props) {
             <Image source={escalier} style={styles.mark} resizeMode="cover" />
             <Text style={styles.title}>Entrer une adresse email</Text>
             <TextInput style={styles.signin}
-                placeholder="email"
+                placeholder="Email"
                 onChangeText={email => setEmail(email)}
                 value={email}
             >

@@ -70,7 +70,7 @@ export default class FetchPlaylist extends React.Component {
     return (
 
       <View style={styles.container}>
-        <ScrollView >
+        <ScrollView style={styles.container2}>
           <Image source={escalier} style={styles.mark} resizeMode="cover" />
           <Text style={styles.title}>Ma PlayList</Text>
           {loading && <ActivityIndicator size="large" color="#0000ff" />}
@@ -100,6 +100,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // marginTop: Constants.statusBarHeight,
+  },
+  container2: {
+    flex: 1
   },
   item: {
     backgroundColor: "#2f55a4",

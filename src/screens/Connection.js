@@ -68,14 +68,14 @@ class Connection extends React.Component {
 				<View style={styles.container2}>
 					<Text style={styles.text}>Email</Text>
 					<TextInput style={styles.signin}
-						placeholder="email"
+						placeholder="Email"
 						onChangeText={email => this.setState({ email })}
 						value={this.state.email}
 					>
 					</TextInput>
 					<Text style={styles.text}>Mot de passe</Text>
 					<TextInput style={styles.signin}
-						placeholder="password"
+						placeholder="Mot de passe"
 						onChangeText={password => this.setState({ password })}
 						value={this.state.password}
 					>

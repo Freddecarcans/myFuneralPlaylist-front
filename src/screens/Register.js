@@ -1,7 +1,9 @@
 
 import React from 'react';
 
-import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Image, Keyboard, Alert } from 'react-native';
+import {
+	View, Text, TextInput, StyleSheet,
+	KeyboardAvoidingView, Image, Keyboard, Alert } from 'react-native';
 import { Button } from "react-native-elements";
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
@@ -93,36 +95,38 @@ class Register extends React.Component {
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Créer un compte</Text>
+				<ScrollView style={styles.container2}>
 				<View>
+					<Text style={styles.text}>Email</Text>
 					<TextInput style={styles.signup}
 						value={this.state.email}
 						editable={false}
 					>
 					</TextInput>
-
+					<Text style={styles.text}>Mot de passe</Text>
 					<TextInput style={styles.signup}
-						placeholder="password"
+						placeholder="Mot de passe"
 						onChangeText={(password) => this.setState({ password })}
 						value={this.state.password}
 					>
 					</TextInput>
-
+					<Text style={styles.text}>Vérifier le mot de passe</Text>
 					<TextInput style={styles.signup}
-						placeholder="verifypassword"
+						placeholder="Vérifier le mot de passe"
 						onChangeText={(verifypassword) => this.setState({ verifypassword })}
 						value={this.state.verifypassword}
 					>
 					</TextInput>
-
+					<Text style={styles.text}>Nom</Text>
 					<TextInput style={styles.signup}
-						placeholder="name"
+						placeholder="Nom"
 						onChangeText={(name) => this.setState({ name })}
 						value={this.state.name}
 					>
 					</TextInput>
-
+					<Text style={styles.text}>Prénom</Text>
 					<TextInput style={styles.signup}
-						placeholder="firstname"
+						placeholder="Prénom"
 						onChangeText={(firstname) => this.setState({ firstname })}
 						value={this.state.firstname}
 					>
@@ -138,7 +142,7 @@ class Register extends React.Component {
 					</TouchableOpacity>
 
 				</View>
-
+				</ScrollView>
 			</KeyboardAvoidingView>
 
 		);
@@ -172,7 +176,8 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		// marginBottom: 0
-		borderRadius: 50
+		borderRadius: 50,
+		marginTop: 25
 	},
 	mark: {
 		position: "absolute",
@@ -190,6 +195,10 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		color: "#ffffff",
 
+	},
+	text: {
+		marginLeft: scale(50),
+		color: "#2f55a4"
 	}
 });
 const mdtp = dispatch => bindActionCreators({ userLogged }, dispatch);
