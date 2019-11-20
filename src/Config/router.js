@@ -2,17 +2,12 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from '../screens/Home';
 import Register from '../screens/Register';
 import Connection from '../screens/Connection';
-import CreatePlayList from '../screens/CreatePlayList';
-
-import FetchPlaylistContainer from '../screens/FetchPlaylist.container';
+import MyPlaylistContainer from '../screens/MyPlaylist.container';
 import EmailScreen from '../screens/EmailScreen';
 import HomeAfterLogin from '../screens/HomeAfterLogin';
-import MyAccount from '../screens/MyAccount';
-import FetchUserContainer from '../screens/FetchUser.container';
+import MyAccountContainer from '../screens/MyAccount.container';
 import TitleContainer from '../screens/Title.container';
 import MyContactsContainer from '../screens/MyContacts.container';
-import Title from '../screens/Title';
-import MyContacts from '../screens/MyContacts';
 
 
 const RouterStackNavigator = createStackNavigator({
@@ -40,29 +35,20 @@ const RouterStackNavigator = createStackNavigator({
 			header: null
 		}
 	},
-	MyAccount: {
-		screen: MyAccount,
-	},
 	Connection: {
 		screen: Connection,
 		navigationOptions: {
 			header: null
 		}
 	},
-	CreatePlayList: {
-		screen: CreatePlayList,
-		navigationOptions: {
-			title: 'Créer une playlist'
-		}
-	},
-	FetchUser: {
-		screen: FetchUserContainer,
+	MyAccount: {
+		screen: MyAccountContainer,
 		navigationOptions: {
 			header: null
 		}
 	},
-	FetchPlaylist: {
-		screen: FetchPlaylistContainer,
+	MyPlaylist: {
+		screen: MyPlaylistContainer,
 		navigationOptions: {
 			header: null
 		}

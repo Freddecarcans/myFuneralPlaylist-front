@@ -62,17 +62,19 @@ class MyContacts extends React.Component {
 
     render() {
         const { contactA, contactB } = this.state;
+        // const { contactA, contactB } = this.props;
         return (
             <View style={styles.container} >
                 <Image source={escalier} style={styles.mark} resizeMode="cover" />
                 <Text style={styles.title}>Enregistrez vos Contacts</Text>
+                <Text style={styles.text}>Contact 1</Text>
                 <TextInput
                     style={styles.signin}
                     placeholder="Contact 1"
                     value={contactA}
                     onChangeText={(contactA) => this.setState({ contactA })}
                 />
-
+                <Text style={styles.text}>Contact 2</Text>
                 <TextInput
                     style={styles.signin}
                     placeholder="Contact 2"
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginBottom: scale(24),
-        marginTop: scale(24),
+        // marginTop: scale(24),
         borderRadius: 50,
         paddingLeft: scale(20),
         color: "#ffffff"
@@ -135,7 +137,12 @@ const styles = StyleSheet.create({
         fontSize: 25,
         textAlign: "center",
         color: "#ffffff",
-        marginTop: 25
+        marginTop: 50,
+        marginBottom: 50
+    },
+    text: {
+        color: "#0059b3",
+		marginLeft: scale(50)
     }
 });
 export default MyContacts;

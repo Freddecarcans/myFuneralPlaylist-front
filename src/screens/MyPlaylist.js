@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   FlatList, ActivityIndicator, Text, View,
-  TouchableOpacity, StyleSheet, Image, Alert
+  TouchableOpacity, StyleSheet, Image, Alert, ScrollView
 } from 'react-native';
 import { Button } from "react-native-elements";
 import { scale } from 'react-native-size-matters';
@@ -68,27 +68,31 @@ export default class FetchPlaylist extends React.Component {
   render() {
     const { tracks, loading, error } = this.props;
     return (
+
       <View style={styles.container}>
-        <Image source={escalier} style={styles.mark} resizeMode="cover" />
-        <Text style={styles.title}>Ma PlayList</Text>
-        {loading && <ActivityIndicator size="large" color="#0000ff" />}
-        {!loading &&
-          <View>
-            <FlatList
-              data={tracks}
-              keyExtractor={({ id }, index) => index.toString()}
-              renderItem={({ item }) => {
-                return (
-                  <TouchableOpacity style={styles.item} onPress={toto => this.handleDelete(item.idtitle)}>
-                    <Text style={styles.itemText}> Artiste:{item.artist}</Text>
-                    <Text style={styles.itemText}> Titre: {item.title}</Text>
-                  </TouchableOpacity>
-                )
-              }}
-            />
-            {this.displayButtonAddIfNeeded()}
-          </View>}
+        <ScrollView style={styles.container2}>
+          <Image source={escalier} style={styles.mark} resizeMode="cover" />
+          <Text style={styles.title}>Ma PlayList</Text>
+          {loading && <ActivityIndicator size="large" color="#0000ff" />}
+          {!loading &&
+            <View>
+              <FlatList
+                data={tracks}
+                keyExtractor={({ id }, index) => index.toString()}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity style={styles.item} onPress={toto => this.handleDelete(item.idtitle)}>
+                      <Text style={styles.itemText}> Artiste:{item.artist}</Text>
+                      <Text style={styles.itemText}> Titre: {item.title}</Text>
+                    </TouchableOpacity>
+                  )
+                }}
+              />
+              {this.displayButtonAddIfNeeded()}
+            </View>}
+        </ScrollView>
       </View>
+      // 
     );
   }
 }
@@ -96,6 +100,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // marginTop: Constants.statusBarHeight,
+  },
+  container2: {
+    flex: 1
   },
   item: {
     backgroundColor: "#2f55a4",
@@ -113,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: "center",
     color: "#ffffff",
-    marginTop: 25
+    marginTop: 50
   },
   mark: {
     position: "absolute",

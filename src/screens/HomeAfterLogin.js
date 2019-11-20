@@ -20,11 +20,11 @@ class HomeAfterLogin extends React.Component {
 	}
 	goToPlayList() {
 		const { navigate } = this.props.navigation;
-		navigate('FetchPlaylist');
+		navigate('MyPlaylist');
 	}
 	goToMyAccount() {
 		const { navigate } = this.props.navigation;
-		navigate('FetchUser');
+		navigate('MyAccount');
 	}
 	goToMyContacts() {
 		const { navigate } = this.props.navigation;
