@@ -1,5 +1,3 @@
-import { urlApi } from '../Config/constants';
-
 export const fetchUserStart = () => ({
     type: "FETCH_USER_START"
 });

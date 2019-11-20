@@ -1,4 +1,3 @@
-
 const initialState = {
     loading: true,
     data: {
@@ -11,7 +10,6 @@ const initialState = {
     },
     error: ''
 };
-
 const user = (state = initialState, action) => {
     switch (action.type) {
         case "FETCH_USER_START": {

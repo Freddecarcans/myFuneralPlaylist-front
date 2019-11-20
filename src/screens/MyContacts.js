@@ -1,6 +1,6 @@
 import React from 'react';
-
-import { Text, View, TextInput, StyleSheet, Image, Alert, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { Text, View, TextInput, StyleSheet,
+    Image, Alert, Keyboard, KeyboardAvoidingView } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { Button } from "react-native-elements";
 import { urlApi } from '../Config/constants';
@@ -14,7 +14,6 @@ class MyContacts extends React.Component {
             contactB: this.props.contactB
         }
     }
-
     componentDidMount() {
         fetch(`${urlApi}/users/${this.props.loggedUser.id}`)
             .then(response => response.json())
@@ -23,12 +22,11 @@ class MyContacts extends React.Component {
             })
             .catch(error => this.props.fetchUserError(error));
     }
-
-    // test route
+    // App navigation
     goToHomeAfterLogin() {
         this.props.navigation.navigate('HomeAfterLogin');
     }
-
+    //  Enregistrer les contacts
     saveContacts() {
         let userId = this.props.loggedUser.id;
         const { contactA, contactB } = this.state;
@@ -59,7 +57,6 @@ class MyContacts extends React.Component {
                 }
             })
     }
-
     render() {
         const { contactA, contactB } = this.state;
         // const { contactA, contactB } = this.props;
@@ -110,13 +107,11 @@ const styles = StyleSheet.create({
         paddingLeft: scale(20),
         color: "#ffffff"
     },
-
     textinput: {
         marginLeft: 5,
         marginRight: 5,
         height: 50,
         paddingLeft: 5,
-
     },
     button: {
         backgroundColor: "#2f55a4",
