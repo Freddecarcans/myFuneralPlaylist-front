@@ -8,7 +8,7 @@ import { scale } from 'react-native-size-matters';
 import { urlApi } from '../Config/constants';
 import escalier from './images/escalier.jpg';
 
-export default class FetchPlaylist extends React.Component {
+export default class MyPlaylist extends React.Component {
   constructor(props) {
     super(props);
   }

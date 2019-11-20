@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, View, TextInput, StyleSheet, Image, Alert, Keyboard } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Image, Alert, Keyboard, KeyboardAvoidingView } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { Button } from "react-native-elements";
 import { urlApi } from '../Config/constants';
@@ -64,31 +64,31 @@ class MyContacts extends React.Component {
         const { contactA, contactB } = this.state;
         // const { contactA, contactB } = this.props;
         return (
-            <View style={styles.container} >
-                <Image source={escalier} style={styles.mark} resizeMode="cover" />
-                <Text style={styles.title}>Enregistrez vos Contacts</Text>
-                <Text style={styles.text}>Contact 1</Text>
-                <TextInput
-                    style={styles.signin}
-                    placeholder="Contact 1"
-                    value={contactA}
-                    onChangeText={(contactA) => this.setState({ contactA })}
-                />
-                <Text style={styles.text}>Contact 2</Text>
-                <TextInput
-                    style={styles.signin}
-                    placeholder="Contact 2"
-                    value={contactB}
-                    onChangeText={(contactB) => this.setState({ contactB })}
-                />
-                <Button
-                    buttonStyle={styles.button}
-                    title="Enregistrez ces Contacts"
-                    onPress={() => this.saveContacts()}
-                />
-            </View>
-
-
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                <View style={styles.container} >
+                    <Image source={escalier} style={styles.mark} resizeMode="cover" />
+                    <Text style={styles.title}>Enregistrez vos Contacts</Text>
+                    <Text style={styles.text}>Contact 1</Text>
+                    <TextInput
+                        style={styles.signin}
+                        placeholder="Contact 1"
+                        value={contactA}
+                        onChangeText={(contactA) => this.setState({ contactA })}
+                    />
+                    <Text style={styles.text}>Contact 2</Text>
+                    <TextInput
+                        style={styles.signin}
+                        placeholder="Contact 2"
+                        value={contactB}
+                        onChangeText={(contactB) => this.setState({ contactB })}
+                    />
+                    <Button
+                        buttonStyle={styles.button}
+                        title="Enregistrez ces Contacts"
+                        onPress={() => this.saveContacts()}
+                    />
+                </View>
+            </KeyboardAvoidingView>
         );
     }
 
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         paddingVertical: scale(8),
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: scale(24),
+        marginBottom: scale(20),
         // marginTop: scale(24),
         borderRadius: 50,
         paddingLeft: scale(20),
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         paddingVertical: scale(8),
         alignItems: "center",
         justifyContent: "center",
-        marginTop: scale(24),
+        marginTop: scale(15),
         borderRadius: 50
     },
     mark: {
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "#0059b3",
-		marginLeft: scale(50)
+        marginLeft: scale(50)
     }
 });
 export default MyContacts;

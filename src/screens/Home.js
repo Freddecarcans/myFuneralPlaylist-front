@@ -1,13 +1,10 @@
 
 import React from 'react';
-import { View, Dimensions, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
 import { Button } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
 import escalier from './images/escalier.jpg';
-
-const { width } = Dimensions.get("window");
-
 
 function Home(props) {
 	
@@ -99,13 +96,6 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		width: "100%",
 		height: "100%"
-	},
-	markWrap: {
-		marginTop: width / scale(4),
-		flex: 1,
-		paddingVertical: scale(30),
-		justifyContent: "center",
-		alignItems: "center"
 	},
 	contenu: {
 		color: "#2f55a4",
