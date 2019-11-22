@@ -6,7 +6,7 @@ import {
 import { Button } from 'react-native-elements';
 import Constants from 'expo-constants';
 import { scale } from 'react-native-size-matters';
-import { urlApi } from '../config/constants';
+import { urlApi } from '../../constants';
 
 import escalier from './images/escalier.jpg';
 

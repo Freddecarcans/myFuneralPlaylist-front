@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { Button } from "react-native-elements";
 import { scale } from 'react-native-size-matters';
-import { urlApi } from '../config/constants';
+import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
 export default class MyPlaylist extends React.Component {

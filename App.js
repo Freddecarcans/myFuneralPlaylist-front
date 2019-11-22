@@ -3,7 +3,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
-import Router from './src/Config/router';
+import Router from './src/config/router';
 import store from './src/store';
 
 

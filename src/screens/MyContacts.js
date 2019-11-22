@@ -3,7 +3,7 @@ import { Text, View, TextInput, StyleSheet,
     Image, Alert, Keyboard, KeyboardAvoidingView } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { Button } from "react-native-elements";
-import { urlApi } from '../config/constants';
+import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
 class MyContacts extends React.Component {
