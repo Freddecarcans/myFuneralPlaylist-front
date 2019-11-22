@@ -30,6 +30,9 @@ class HomeAfterLogin extends React.Component {
 		const { navigate } = this.props.navigation;
 		navigate('MyContacts')
 	}
+	componentWillMount() {
+		
+	}
 	render() {
 		return (
 			<View style={styles.container}>

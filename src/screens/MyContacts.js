@@ -57,9 +57,8 @@ class MyContacts extends React.Component {
                 }
             })
     }
-    render() {
-        const { contactA, contactB } = this.state;
-        // const { contactA, contactB } = this.props;
+    render() {        
+        const { contactA, contactB } = this.props;
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <View style={styles.container} >
@@ -88,7 +87,6 @@ class MyContacts extends React.Component {
             </KeyboardAvoidingView>
         );
     }
-
 }
 const styles = StyleSheet.create({
     container: {

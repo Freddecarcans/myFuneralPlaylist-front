@@ -31,7 +31,7 @@ function EmailScreen(props) {
                 goToRegister();
             }
         } catch (error) {
-            Alert.alert("Une erreur s\'est produite, veuillez réessayer" )
+            Alert.alert("Une erreur s'est produite, veuillez réessayer" )
             console.error(error)
         }
     }
