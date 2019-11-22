@@ -1,6 +1,4 @@
-
 import React from 'react';
-
 import {
 	View, Text, TextInput, StyleSheet,
 	KeyboardAvoidingView, Image, Keyboard, Alert } from 'react-native';
@@ -10,32 +8,31 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
 import userLogged from '../actions/auth.action';
-import { urlApi } from '../Config/constants';
+import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
 
 class Register extends React.Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			email: this.props.navigation.state.params.email.email,
 			password: "",
 			verifypassword: "",
 			name: "",
 			firstname: "",
+			contactA:"",
+			contactB:""
 		};
 	}
 
-	goToMyContacts() {
-		this.props.navigation.navigate('MyContacts');
+	goToHomeAfterLogin() {
+		this.props.navigation.navigate('HomeAfterLogin');
 	}
 
-	handleSubmit() {
+	handleSubmit () {
 		const { email, password, name, firstname, contactA, contactB } = this.state;
-
 		Keyboard.dismiss();
-
 		if (this.state.password.length < 6) {
 			Alert.alert('Erreur mot de passe', 'Le mot de passe doit contenir au moins 6 caractères')
 		}
@@ -49,26 +46,23 @@ class Register extends React.Component {
 					'Accept': 'application/json'
 				}),
 				body: JSON.stringify({ email, password, name, firstname, contactA, contactB }),
-
 			})
 				.then(res => {
 					res.json()
 					if (res.status === 201) {
+						this.getUserInfo();
 						Alert.alert('Compte créé avec succès',
 							'Enregistrez vos contacts',
-							[{ text: "OK", onPress: () => this.goToMyContacts() }])
-						this.getUserInfo();
-
+							[{ text: "OK", onPress: () => this.goToHomeAfterLogin()}])
 					}
 				})
 		}
 	}
 
-	getUserInfo = async () => {
+	getUserInfo ()  {
 		const { userLogged } = this.props;
 		const { email, password } = this.state;
-
-		await fetch(`${urlApi}/auth/signin`, {
+		fetch(`${urlApi}/auth/signin`, {
 			method: 'POST',
 			headers: new Headers({
 				'Content-Type': 'application/json',
@@ -88,10 +82,7 @@ class Register extends React.Component {
 	}
 
 	render() {
-		const { email } = this.props.navigation.state.params.email;
-
 		return (
-
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Créer un compte</Text>
@@ -131,7 +122,6 @@ class Register extends React.Component {
 						value={this.state.firstname}
 					>
 					</TextInput>
-
 					<TouchableOpacity>
 						<Button
 							buttonStyle={styles.button}
@@ -140,11 +130,9 @@ class Register extends React.Component {
 							titleStyle={styles.signinText}
 						/>
 					</TouchableOpacity>
-
 				</View>
 				</ScrollView>
 			</KeyboardAvoidingView>
-
 		);
 	}
 }
@@ -194,7 +182,6 @@ const styles = StyleSheet.create({
 		marginLeft: scale(24),
 		fontSize: 15,
 		color: "#ffffff",
-
 	},
 	text: {
 		marginLeft: scale(50),

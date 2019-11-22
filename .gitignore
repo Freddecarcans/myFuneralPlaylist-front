@@ -13,4 +13,5 @@ web-report/
 # macOS
 .DS_Store
 
-./src/Config/constants.js
+#Config
+constants.js

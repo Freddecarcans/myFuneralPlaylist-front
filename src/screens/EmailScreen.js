@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert } from 'react
 import { scale } from 'react-native-size-matters';
 import { Button } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { urlApi } from '../Config/constants';
+import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
 
@@ -31,7 +31,7 @@ function EmailScreen(props) {
                 goToRegister();
             }
         } catch (error) {
-            Alert.alert("Une erreur s\'est produite, veuillez réessayer" )
+            Alert.alert("Une erreur s'est produite, veuillez réessayer" )
             console.error(error)
         }
     }

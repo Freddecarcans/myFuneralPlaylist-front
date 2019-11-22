@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import FetchPlaylist from './MyPlaylist';
+import MyPlaylist from './MyPlaylist';
 import { bindActionCreators } from 'redux';
 import { playlistFetched, playlistFetch, playlistFetchError, trackDeleted } from '../actions/tracks.action';
 
@@ -20,4 +20,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FetchPlaylist);
+)(MyPlaylist);

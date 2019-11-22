@@ -1,13 +1,13 @@
 
 import React from 'react';
-import { View, TextInput, StyleSheet, Keyboard, Image, Text } from 'react-native';
+import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Header } from "react-native-elements";
 import { userLogged } from '../actions/auth.action';
-import { urlApi } from '../Config/constants';
+import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
 
@@ -47,7 +47,7 @@ class Connection extends React.Component {
 		})
 			.then(res => {
 				if (res.status === 401) {
-					alert('Erreur d\'authentification');
+					Alert.alert('Erreur d\'authentification','Veuillez ressaisir vos identifiants');
 				} else if (res.status === 200) {
 					return res.json();
 				}

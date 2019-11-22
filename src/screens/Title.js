@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TextInput, StyleSheet, Image, FlatList, Alert, Keyboard } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { Button } from "react-native-elements";
-import { urlApi } from '../Config/constants';
+import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
 class Title extends React.Component {
