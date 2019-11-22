@@ -7,7 +7,7 @@ import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Header } from "react-native-elements";
 import { userLogged } from '../actions/auth.action';
-import { urlApi } from '../Config/constants';
+import { urlApi } from '../config/constants';
 import escalier from './images/escalier.jpg';
 
 

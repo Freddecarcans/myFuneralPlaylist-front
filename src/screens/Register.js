@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
 import userLogged from '../actions/auth.action';
-import { urlApi } from '../Config/constants';
+import { urlApi } from '../config/constants';
 import escalier from './images/escalier.jpg';
 
 
