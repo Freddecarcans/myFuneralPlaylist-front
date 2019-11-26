@@ -10,46 +10,33 @@ import { urlApi } from '../../constants';
 
 import escalier from './images/escalier.jpg';
 
-class FetchUser extends React.Component {
+class MyAccount extends React.Component {
     constructor(props) {
         super(props);
     }
     async componentDidMount() {
         const id = this.props.loggedUser.id;
         try {
-            // const response = await fetch(`${urlApi}/users/${id}`);
-            // const data = await response.json();
-            // this.setState({
-            //     loading: false,
-            //     user: data
             this.props.fetchUserStart();
-      const response = fetch(`${urlApi}/users/${id}`)
-        .then(response => response.json())
-        .then(data => {
-          this.props.fetchUserSuccess(data);
-            });
+            await fetch(`${urlApi}/users/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.props.fetchUserSuccess(data);
+                });
         }
         catch (error) {
             console.error(error => this.props.fetchUserError(error));
         }
-        
     }
-    // goToRegister () {
-       
-    // }
-    render() {
-        
-        const { user, loading } = this.props;
-        console.log(user);
-        
-        return (
 
+    render() {
+        const { user, loading } = this.props;
+        return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled >
                 <Image source={escalier} style={styles.mark} resizeMode="cover" />
                 <Text style={styles.title}>Mon compte</Text>
                 {loading && <ActivityIndicator size="large" color="#0000ff" />}
                 {!loading &&
-
                     <View style={styles.container2}>
                         <Text style={styles.text}>Email</Text>
                         <TouchableOpacity style={styles.item}>
@@ -84,13 +71,11 @@ class FetchUser extends React.Component {
                     </View>}
             </KeyboardAvoidingView>
         );
-
     }
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // marginTop: Constants.statusBarHeight,
     },
     container2: {
         flex: 1,
@@ -130,8 +115,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "#0059b3",
-		marginLeft: scale(50)  
+        marginLeft: scale(50)
     }
 });
 
-export default FetchUser;
+export default MyAccount;

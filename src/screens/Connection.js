@@ -1,20 +1,13 @@
 
 import React from 'react';
 import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button, Header } from "react-native-elements";
-import { userLogged } from '../actions/auth.action';
+import { Button } from "react-native-elements";
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
-
 class Connection extends React.Component {
-	static navigationOptions = {
-		header: null,
-	};
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -23,14 +16,9 @@ class Connection extends React.Component {
 		}
 	}
 
-
 	goToHomeAfterLogin() {
 		const { navigate } = this.props.navigation;
 		navigate('HomeAfterLogin');
-	}
-
-	componentDidMount() {
-
 	}
 
 	handleSubmit = async () => {
@@ -60,7 +48,6 @@ class Connection extends React.Component {
 			})
 	}
 	render() {
-
 		return (
 			<View style={styles.container}>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
@@ -94,18 +81,15 @@ class Connection extends React.Component {
 	}
 }
 
-
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "grey",
 		flex: 1
 	},
-
 	container2: {
 		flex: 1,
 		justifyContent: "flex-start"
 	},
-
 	signin: {
 		backgroundColor: "#2f55a4",
 		marginLeft: scale(16),
@@ -114,18 +98,15 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		marginBottom: scale(24),
-		// marginTop: scale(24),
 		borderRadius: 50,
 		paddingLeft: scale(20),
 		color: "#ffffff"
 	},
-
 	textinput: {
 		marginLeft: 5,
 		marginRight: 5,
 		height: 50,
 		paddingLeft: 5,
-
 	},
 	button: {
 		backgroundColor: "#2f55a4",
@@ -154,6 +135,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-const mdtp = dispatch => bindActionCreators({ userLogged }, dispatch);
-
-export default connect(null, mdtp)(Connection);
+export default Connection;

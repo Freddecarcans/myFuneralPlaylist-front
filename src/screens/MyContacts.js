@@ -1,6 +1,8 @@
 import React from 'react';
-import { Text, View, TextInput, StyleSheet,
-    Image, Alert, Keyboard, KeyboardAvoidingView } from 'react-native';
+import {
+    Text, View, TextInput, StyleSheet,
+    Image, Alert, Keyboard, KeyboardAvoidingView
+} from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { Button } from "react-native-elements";
 import { urlApi } from '../../constants';
@@ -42,22 +44,11 @@ class MyContacts extends React.Component {
                 res.json()
                 if (res.status === 201) {
                     Alert.alert('Contacts créés avec succès', '', [
-                        {
-                            text: 'OK',
-                            onPress: () => {
-                                fetch(`${urlApi}/users/${userId}`)
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        this.props.fetchUserSuccess(data);
-                                    })
-                                    .catch(error => this.props.fetchUserError(error));
-                                this.goToHomeAfterLogin()
-                            }
-                        }])
+                        { text: 'OK', onPress: () => { this.goToHomeAfterLogin() } }])
                 }
             })
     }
-    render() {        
+    render() {
         const { contactA, contactB } = this.state;
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>

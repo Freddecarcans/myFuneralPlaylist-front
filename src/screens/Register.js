@@ -4,13 +4,9 @@ import {
 	KeyboardAvoidingView, Image, Keyboard, Alert } from 'react-native';
 import { Button } from "react-native-elements";
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { scale } from 'react-native-size-matters';
-import userLogged from '../actions/auth.action';
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
-
 
 class Register extends React.Component {
 	constructor(props) {
@@ -23,8 +19,7 @@ class Register extends React.Component {
 			firstname: "",
 			contactA:"",
 			contactB:""
-		};
-		
+		};		
 	}
 
 	goToHomeAfterLogin() {
@@ -60,10 +55,11 @@ class Register extends React.Component {
 		}
 	}
 
-	getUserInfo ()  {
+	getUserInfo = async () => {
 		const { userLogged } = this.props;
 		const { email, password } = this.state;
-		fetch(`${urlApi}/auth/signin`, {
+		try{
+		await fetch(`${urlApi}/auth/signin`, {
 			method: 'POST',
 			headers: new Headers({
 				'Content-Type': 'application/json',
@@ -78,13 +74,13 @@ class Register extends React.Component {
 				}
 			})
 			.then((user) => {
-				userLogged(user);
-				
+				userLogged(user);			
 			})
+		} catch (error) {
+			console.error(error.message)
+		}
 	}
-	onPressButton = () => {
-		this.getUserInfo();
-	}
+
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
@@ -192,5 +188,5 @@ const styles = StyleSheet.create({
 		color: "#2f55a4"
 	}
 });
-const mdtp = dispatch => bindActionCreators({ userLogged }, dispatch);
-export default connect(mdtp, null)(Register);
+
+export default Register;

@@ -13,7 +13,6 @@ class Title extends React.Component {
 			artist: ''
 		};
 	}
-
 	// Enregistrer un titre dans la BDD
 	addTrack() {
 		let user_id = this.props.loggedUser.id;
@@ -57,7 +56,6 @@ class Title extends React.Component {
 					value={this.state.title}
 					onChangeText={(title) => this.setState({ title })}
 				/>
-
 				<TextInput
 					style={styles.signin}
 					placeholder="Artiste"
@@ -91,13 +89,11 @@ const styles = StyleSheet.create({
 		paddingLeft: scale(20),
 		color: "#ffffff"
 	},
-
 	textinput: {
 		marginLeft: 5,
 		marginRight: 5,
 		height: 50,
 		paddingLeft: 5,
-
 	},
 	button: {
 		backgroundColor: "#2f55a4",

@@ -6,9 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
-
 function EmailScreen(props) {
-
     const [email, setEmail] = useState("");
 
     const goToRegister = () => {
@@ -20,7 +18,6 @@ function EmailScreen(props) {
         try {
             const response = await fetch(`${urlApi}/auth/email/${email}`);
             const data = await response.json();
-
             if (data[0] && data !== []) {
                 Alert.alert('Email déjà enregistré', 'Essayez une autre adresse', [{ text: 'OK' }])
             }
@@ -35,7 +32,6 @@ function EmailScreen(props) {
             console.error(error)
         }
     }
-
 
     return (
         

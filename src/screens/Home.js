@@ -46,8 +46,6 @@ function Home(props) {
 		);
 	}
 
-
-
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "grey",
@@ -63,9 +61,7 @@ const styles = StyleSheet.create({
 		fontSize: 40,
 		marginTop: 80
 	},
-
 	signin: {
-
 		marginLeft: scale(16),
 		marginRight: scale(16),
 		paddingVertical: scale(8),
@@ -74,7 +70,6 @@ const styles = StyleSheet.create({
 		marginBottom: scale(12),
 		textAlign: "center",
 		fontSize: 15,
-		// color: "#2f55a4",
 		borderRadius: 50,
 		borderColor: "#2f55a4",
 		borderWidth: 2
@@ -95,7 +90,6 @@ const styles = StyleSheet.create({
 	},
 	signupText: {
 		fontSize: 20,
-
 	},
 	mark: {
 		position: "absolute",

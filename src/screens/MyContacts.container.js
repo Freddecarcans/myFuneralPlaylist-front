@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import MyContacts from './MyContacts';
 import { bindActionCreators } from 'redux';
 import { fetchUserSuccess, fetchUserError } from '../actions/user.action';
@@ -11,7 +11,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    fetchUserSuccess, fetchUserError
+    fetchUserSuccess,
+    fetchUserError
   }, dispatch)
 
 export default connect(
