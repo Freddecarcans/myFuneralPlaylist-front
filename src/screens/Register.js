@@ -24,6 +24,7 @@ class Register extends React.Component {
 			contactA:"",
 			contactB:""
 		};
+		
 	}
 
 	goToHomeAfterLogin() {
@@ -78,9 +79,12 @@ class Register extends React.Component {
 			})
 			.then((user) => {
 				userLogged(user);
+				
 			})
 	}
-
+	onPressButton = () => {
+		this.getUserInfo();
+	}
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>

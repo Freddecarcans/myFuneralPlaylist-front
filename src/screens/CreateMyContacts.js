@@ -10,8 +10,8 @@ class MyContacts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            contactA: props.contactA,
-            contactB: props.contactB
+            contactA: "",
+            contactB: ""
         }
     }
     componentDidMount() {
@@ -58,7 +58,7 @@ class MyContacts extends React.Component {
             })
     }
     render() {        
-        const { contactA, contactB } = this.state;
+        const { contactA, contactB } = this.props;
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <View style={styles.container} >

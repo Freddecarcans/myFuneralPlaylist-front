@@ -32,12 +32,16 @@ class FetchUser extends React.Component {
         catch (error) {
             console.error(error => this.props.fetchUserError(error));
         }
+        
     }
     // goToRegister () {
        
     // }
     render() {
+        
         const { user, loading } = this.props;
+        console.log(user);
+        
         return (
 
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled >
