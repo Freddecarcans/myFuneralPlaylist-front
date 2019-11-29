@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, TextInput, StyleSheet, Image, FlatList, Alert, Keyboard } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
@@ -50,6 +50,9 @@ class Title extends React.Component {
 			<View style={styles.container} >
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Ajouter un morceau</Text>
+				<Icon name="home" color="#fff"  style={styles.icon} 
+					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
+				/>
 				<TextInput
 					style={styles.signin}
 					placeholder="Titre"

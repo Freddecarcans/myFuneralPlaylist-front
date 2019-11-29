@@ -3,7 +3,7 @@ import {
     ActivityIndicator, Text, View, SafeAreaView, TextInput,
     TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView, Alert
 } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import Constants from 'expo-constants';
 import { scale } from 'react-native-size-matters';
 import { urlApi } from '../../constants';
@@ -37,6 +37,9 @@ class MyAccount extends React.Component {
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled >
                 <Image source={escalier} style={styles.mark} resizeMode="cover" />
                 <Text style={styles.title}>Mon compte</Text>
+                <Icon name="home" color="#fff"  style={styles.icon} 
+					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
+				/>
                 {loading && <ActivityIndicator size="large" color="#0000ff" />}
                 {!loading &&
                     <View style={styles.container2}>
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     },
     container2: {
         flex: 1,
-        justifyContent: "flex-end"
+        justifyContent: "center"
     },
     item: {
         backgroundColor: "#2f55a4",

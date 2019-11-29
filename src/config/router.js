@@ -1,4 +1,6 @@
+import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { Header } from 'react-native-elements';
 import Home from '../screens/Home';
 import RegisterContainer from '../screens/Register.container';
 import ConnectionContainer from '../screens/Connection.container';

@@ -4,7 +4,7 @@ import {
     Image, Alert, Keyboard, KeyboardAvoidingView
 } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
@@ -48,7 +48,7 @@ class MyContacts extends React.Component {
             .then(res => {
                 res.json()
                 if (res.status === 201) {
-                    Alert.alert('Contacts créés avec succès', '', [
+                    Alert.alert('Contacts modifiés avec succès', '', [
                         { text: 'OK', onPress: () => { this.goToHomeAfterLogin() } }])
                 }
             })
@@ -59,6 +59,9 @@ class MyContacts extends React.Component {
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <Image source={escalier} style={styles.mark} resizeMode="cover" />
                 <Text style={styles.title}>Mes Contacts</Text>
+                <Icon name="home" color="#fff"  style={styles.icon} 
+					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
+				/>
                     <View style={styles.container2}> 
                         <Text style={styles.label}>Contact 1</Text>
                         <View style={styles.container3}>

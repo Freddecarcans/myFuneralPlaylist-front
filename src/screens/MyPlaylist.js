@@ -3,7 +3,7 @@ import {
     FlatList, ActivityIndicator, Text, View,
     TouchableOpacity, StyleSheet, Image, Alert
 } from 'react-native';
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { scale } from 'react-native-size-matters';
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
@@ -68,6 +68,9 @@ export default class MyPlaylist extends React.Component {
             <View style={styles.container}>
                 <Image source={escalier} style={styles.mark} resizeMode="cover" />
                 <Text style={styles.title}>Ma PlayList</Text>
+                <Icon name="home" color="#fff"  style={styles.icon} 
+					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
+				/>
                 {loading && <ActivityIndicator size="large" color="#0000ff" />}
                 {!loading &&
                     <View style={styles.container2}>

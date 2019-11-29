@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View, Image, Text, ActivityIndicator, StyleSheet } from 'react-native';
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
 import {useNetInfo} from '@react-native-community/netinfo';

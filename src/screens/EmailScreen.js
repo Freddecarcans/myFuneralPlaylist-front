@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
@@ -38,6 +38,9 @@ function EmailScreen(props) {
         <View style={styles.container}>
             <Image source={escalier} style={styles.mark} resizeMode="cover" />
             <Text style={styles.title}>Entrer une adresse email</Text>
+            <Icon name="home" color="#fff"  style={styles.icon} 
+					onPress={() => props.navigation.navigate('Home')}
+				/>
             <TextInput style={styles.signin}
                 placeholder="Email"
                 onChangeText={email => setEmail(email)}

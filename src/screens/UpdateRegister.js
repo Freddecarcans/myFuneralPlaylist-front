@@ -3,7 +3,7 @@ import {
 	View, Text, TextInput, StyleSheet,
 	KeyboardAvoidingView, Image, Keyboard, Alert
 } from 'react-native';
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
 import { urlApi } from '../../constants';
@@ -58,6 +58,9 @@ class Register extends React.Component {
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Modifier mes informations</Text>
+				<Icon name="home" color="#fff"  style={styles.icon} 
+					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
+				/>
 				<ScrollView style={styles.container2}>
 					<View>
 						<Text style={styles.text}>Email</Text>

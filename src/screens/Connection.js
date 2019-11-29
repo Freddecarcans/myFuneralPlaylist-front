@@ -3,7 +3,7 @@ import React from 'react';
 import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
@@ -11,8 +11,8 @@ class Connection extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: "exemple3@mail",
-			password: "exemple",
+			email: "exemple@mail",
+			password: "Exemple",
 		}
 	}
 
@@ -52,6 +52,9 @@ class Connection extends React.Component {
 			<View style={styles.container}>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Connexion</Text>
+				<Icon name="home" color="#fff"  style={styles.icon} 
+					onPress={() => this.props.navigation.navigate('Home')}
+				/>
 				<View style={styles.container2}>
 					<Text style={styles.text}>Email</Text>
 					<TextInput style={styles.signin}
@@ -132,6 +135,11 @@ const styles = StyleSheet.create({
 	text: {
 		color: "#0059b3",
 		marginLeft: scale(50)
+	},
+	icon: {
+		// marginTop: 20
+		width: 30,
+		height: 30
 	}
 });
 
