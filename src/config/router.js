@@ -8,6 +8,7 @@ import HomeAfterLoginContainer from '../screens/HomeAfterLogin.container';
 import MyAccountContainer from '../screens/MyAccount.container';
 import TitleContainer from '../screens/Title.container';
 import MyContactsContainer from '../screens/MyContacts.container';
+import UpdateRegisterContainer from '../screens/UpdateRegister.container';
 
 
 const RouterStackNavigator = createStackNavigator({
@@ -65,6 +66,12 @@ const RouterStackNavigator = createStackNavigator({
 			header: null
 		}
 	},
+	UpdateRegister: {
+		screen: UpdateRegisterContainer,
+		navigationOptions: {
+			header: null
+		}
+	}
 },
 	{
 		initialRouteName: 'Home'

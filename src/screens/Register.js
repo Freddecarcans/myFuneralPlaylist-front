@@ -1,7 +1,8 @@
 import React from 'react';
 import {
 	View, Text, TextInput, StyleSheet,
-	KeyboardAvoidingView, Image, Keyboard, Alert } from 'react-native';
+	KeyboardAvoidingView, Image, Keyboard, Alert
+} from 'react-native';
 import { Button } from "react-native-elements";
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
@@ -17,16 +18,16 @@ class Register extends React.Component {
 			verifypassword: "",
 			name: "",
 			firstname: "",
-			contactA:"",
-			contactB:""
-		};		
+			contactA: "",
+			contactB: ""
+		};
 	}
 
 	goToHomeAfterLogin() {
 		this.props.navigation.navigate('HomeAfterLogin');
 	}
 
-	handleSubmit () {
+	handleSubmit() {
 		const { email, password, name, firstname, contactA, contactB } = this.state;
 		Keyboard.dismiss();
 		if (this.state.password.length < 6) {
@@ -48,8 +49,8 @@ class Register extends React.Component {
 					if (res.status === 201) {
 						this.getUserInfo();
 						Alert.alert('Compte créé avec succès',
-							'Enregistrez vos contacts',
-							[{ text: "OK", onPress: () => this.goToHomeAfterLogin()}])
+							'',
+							[{ text: "OK", onPress: () => this.goToHomeAfterLogin() }])
 					}
 				})
 		}
@@ -58,7 +59,7 @@ class Register extends React.Component {
 	getUserInfo = async () => {
 		const { userLogged } = this.props;
 		const { email, password } = this.state;
-		try{
+
 		await fetch(`${urlApi}/auth/signin`, {
 			method: 'POST',
 			headers: new Headers({
@@ -74,11 +75,8 @@ class Register extends React.Component {
 				}
 			})
 			.then((user) => {
-				userLogged(user);			
+				userLogged(user);
 			})
-		} catch (error) {
-			console.error(error.message)
-		}
 	}
 
 	render() {
@@ -87,50 +85,50 @@ class Register extends React.Component {
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Créer un compte</Text>
 				<ScrollView style={styles.container2}>
-				<View>
-					<Text style={styles.text}>Email</Text>
-					<TextInput style={styles.signup}
-						value={this.state.email}
-						editable={false}
-					>
-					</TextInput>
-					<Text style={styles.text}>Mot de passe</Text>
-					<TextInput style={styles.signup}
-						placeholder="Mot de passe"
-						onChangeText={(password) => this.setState({ password })}
-						value={this.state.password}
-					>
-					</TextInput>
-					<Text style={styles.text}>Vérifier le mot de passe</Text>
-					<TextInput style={styles.signup}
-						placeholder="Vérifier le mot de passe"
-						onChangeText={(verifypassword) => this.setState({ verifypassword })}
-						value={this.state.verifypassword}
-					>
-					</TextInput>
-					<Text style={styles.text}>Nom</Text>
-					<TextInput style={styles.signup}
-						placeholder="Nom"
-						onChangeText={(name) => this.setState({ name })}
-						value={this.state.name}
-					>
-					</TextInput>
-					<Text style={styles.text}>Prénom</Text>
-					<TextInput style={styles.signup}
-						placeholder="Prénom"
-						onChangeText={(firstname) => this.setState({ firstname })}
-						value={this.state.firstname}
-					>
-					</TextInput>
-					<TouchableOpacity>
-						<Button
-							buttonStyle={styles.button}
-							onPress={this.handleSubmit.bind(this)}
-							title="S' enregistrer"
-							titleStyle={styles.signinText}
-						/>
-					</TouchableOpacity>
-				</View>
+					<View>
+						<Text style={styles.text}>Email</Text>
+						<TextInput style={styles.signup}
+							value={this.state.email}
+							editable={false}
+						>
+						</TextInput>
+						<Text style={styles.text}>Mot de passe</Text>
+						<TextInput style={styles.signup}
+							placeholder="Mot de passe"
+							onChangeText={(password) => this.setState({ password })}
+							value={this.state.password}
+						>
+						</TextInput>
+						<Text style={styles.text}>Vérifier le mot de passe</Text>
+						<TextInput style={styles.signup}
+							placeholder="Vérifier le mot de passe"
+							onChangeText={(verifypassword) => this.setState({ verifypassword })}
+							value={this.state.verifypassword}
+						>
+						</TextInput>
+						<Text style={styles.text}>Nom</Text>
+						<TextInput style={styles.signup}
+							placeholder="Nom"
+							onChangeText={(name) => this.setState({ name })}
+							value={this.state.name}
+						>
+						</TextInput>
+						<Text style={styles.text}>Prénom</Text>
+						<TextInput style={styles.signup}
+							placeholder="Prénom"
+							onChangeText={(firstname) => this.setState({ firstname })}
+							value={this.state.firstname}
+						>
+						</TextInput>
+						<TouchableOpacity>
+							<Button
+								buttonStyle={styles.button}
+								onPress={this.handleSubmit.bind(this)}
+								title="S' enregistrer"
+								titleStyle={styles.signinText}
+							/>
+						</TouchableOpacity>
+					</View>
 				</ScrollView>
 			</KeyboardAvoidingView>
 		);
@@ -163,7 +161,6 @@ const styles = StyleSheet.create({
 		paddingVertical: scale(8),
 		alignItems: "center",
 		justifyContent: "center",
-		// marginBottom: 0
 		borderRadius: 50,
 		marginTop: 25
 	},

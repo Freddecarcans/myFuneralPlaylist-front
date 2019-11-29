@@ -1,12 +1,17 @@
 const initialState = {
     loading: true,
     data: {
+        iduser:"",
         email: "",
         name: "",
         firstname: "",
         username: "",
         contactA: "",
-        contactB: ""
+        contactAName: "",
+        contactAFirstName: "",
+        contactB: "",
+        contactBName: "",
+        contactBFirstName: ""
     },
     error: ''
 };

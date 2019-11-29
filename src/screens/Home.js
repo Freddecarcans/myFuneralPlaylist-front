@@ -9,7 +9,6 @@ import escalier from './images/escalier.jpg';
 
 function Home(props) {
 	const netInfo = useNetInfo();
-	
 	const goToConnection = () => {
 		props.navigation.navigate('Connection');
 	}

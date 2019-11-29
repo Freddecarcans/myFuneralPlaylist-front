@@ -28,7 +28,9 @@ class MyAccount extends React.Component {
             console.error(error => this.props.fetchUserError(error));
         }
     }
-
+    goToUpdateRegister () {
+        this.props.navigation.navigate('UpdateRegister')
+    }
     render() {
         const { user, loading } = this.props;
         return (
@@ -42,32 +44,35 @@ class MyAccount extends React.Component {
                         <TouchableOpacity style={styles.item}>
                             <Text style={styles.itemText}>{user.email}</Text>
                         </TouchableOpacity>
+
                         <Text style={styles.text}>Nom</Text>
                         <TouchableOpacity style={styles.item}>
                             <Text style={styles.itemText}>{user.name}</Text>
                         </TouchableOpacity>
+
                         <Text style={styles.text}>Prénom</Text>
                         <TouchableOpacity style={styles.item}>
                             <Text style={styles.itemText}>{user.firstname}</Text>
                         </TouchableOpacity>
+
                         <Text style={styles.text}>Contact 1</Text>
                         <TouchableOpacity style={styles.item}>
-                            <Text style={styles.itemText}>{user.contactA}</Text>
+                            <Text style={styles.itemText}>{user.contactAFirstName} {user.contactAName} </Text>
                         </TouchableOpacity>
+                        
                         <Text style={styles.text}>Contact 2</Text>
                         <TouchableOpacity style={styles.item}>
-                            <Text style={styles.itemText}>{user.contactB}</Text>
+                            <Text style={styles.itemText}>{user.contactBFirstName} {user.contactBName}</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity>
                             <Button
                                 buttonStyle={styles.button}
-                                // onPress={() => Alert.alert('Ce bouton n\'est pas encore branché')}
+                                onPress={()=>this.goToUpdateRegister()}
                                 title="Modifier mes informations"
                                 titleStyle={styles.signinText}
                             />
                         </TouchableOpacity>
-
                     </View>}
             </KeyboardAvoidingView>
         );

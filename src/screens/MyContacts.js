@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Text, View, TextInput, StyleSheet,
+    Text, View, TextInput, StyleSheet, ScrollView,
     Image, Alert, Keyboard, KeyboardAvoidingView
 } from 'react-native';
 import { scale } from 'react-native-size-matters';
@@ -13,7 +13,11 @@ class MyContacts extends React.Component {
         super(props);
         this.state = {
             contactA: props.contactA,
-            contactB: props.contactB
+            contactAName: props.contactAName,
+            contactAFirstName: props.contactAFirstName,
+            contactB: props.contactB,
+            contactBName: props.contactBName,
+            contactBFirstName: props.contactBFirstName
         }
     }
     componentDidMount() {
@@ -31,14 +35,15 @@ class MyContacts extends React.Component {
     //  Enregistrer les contacts
     saveContacts() {
         let userId = this.props.loggedUser.id;
-        const { contactA, contactB } = this.state;
+        const { contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName } = this.state;
+        
         Keyboard.dismiss();
         fetch(`${urlApi}/users/${userId}/contact`, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json"
             }),
-            body: JSON.stringify({ contactA, contactB }),
+            body: JSON.stringify({ contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName }),
         })
             .then(res => {
                 res.json()
@@ -49,20 +54,51 @@ class MyContacts extends React.Component {
             })
     }
     render() {
-        const { contactA, contactB } = this.state;
+        const { contactA,contactAName, contactAFirstName, contactB, contactBName, contactBFirstName } = this.state;
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-                <View style={styles.container} >
+                <ScrollView style={styles.container} >
+                <View style={styles.container2}>
                     <Image source={escalier} style={styles.mark} resizeMode="cover" />
-                    <Text style={styles.title}>Enregistrez vos Contacts</Text>
-                    <Text style={styles.text}>Contact 1</Text>
+                    <Text style={styles.title}>Mes Contacts</Text>
+                    <Text style={styles.text}>Enregistrez ici l'adresse email des deux contacts à qui vous voulez transmettre  votre playlist</Text>
+                    
+                    <Text style={styles.label}>Contact 1</Text>
+                    <View style={styles.container3}>
+                    <TextInput
+                        style={styles.inputname}
+                        placeholder="Prénom"
+                        value={contactAFirstName}
+                        onChangeText={(contactAFirstName) => this.setState({ contactAFirstName })}
+                    />
+                    <TextInput
+                        style={styles.inputname}
+                        placeholder="Nom"
+                        value={contactAName}
+                        onChangeText={(contactAName) => this.setState({ contactAName })}
+                    /> 
+                    </View>
                     <TextInput
                         style={styles.signin}
                         placeholder="Contact 1"
                         value={contactA}
                         onChangeText={(contactA) => this.setState({ contactA })}
                     />
-                    <Text style={styles.text}>Contact 2</Text>
+                    <Text style={styles.label}>Contact 2</Text>
+                    <View style={styles.container3}>
+                    <TextInput
+                        style={styles.inputname}
+                        placeholder="Prénom"
+                        value={contactBFirstName}
+                        onChangeText={(contactBFirstName) => this.setState({ contactBFirstName })}
+                    />
+                    <TextInput
+                        style={styles.inputname}
+                        placeholder="Nom"
+                        value={contactBName}
+                        onChangeText={(contactBName) => this.setState({ contactBName })}
+                    /> 
+                    </View>
                     <TextInput
                         style={styles.signin}
                         placeholder="Contact 2"
@@ -74,7 +110,8 @@ class MyContacts extends React.Component {
                         title="Enregistrez ces Contacts"
                         onPress={() => this.saveContacts()}
                     />
-                </View>
+                    </View>
+                </ScrollView>
             </KeyboardAvoidingView>
         );
     }
@@ -82,6 +119,14 @@ class MyContacts extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    container2: {
+        flex: 1,
+        justifyContent: "center",
+    },
+    container3: {
+        flexDirection: "row",
+        justifyContent: "space-around"
     },
     signin: {
         backgroundColor: "#2f55a4",
@@ -96,11 +141,16 @@ const styles = StyleSheet.create({
         paddingLeft: scale(20),
         color: "#ffffff"
     },
-    textinput: {
-        marginLeft: 5,
+    inputname: {
+        backgroundColor: "#2f55a4",
+        // marginLeft: 5,
         marginRight: 5,
-        height: 50,
-        paddingLeft: 5,
+        marginBottom: 5,
+        height: 40,
+        paddingLeft: scale(20),
+        width: "40%",
+        borderRadius: 50,
+        color: "#ffffff"
     },
     button: {
         backgroundColor: "#2f55a4",
@@ -124,9 +174,13 @@ const styles = StyleSheet.create({
         marginTop: 50,
         marginBottom: 50
     },
-    text: {
+    label: {
         color: "#0059b3",
         marginLeft: scale(50)
+    },
+    text: {
+        color: "#ffffff",
+        textAlign: "center",
     }
 });
 export default MyContacts;
