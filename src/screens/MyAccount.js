@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     },
     container2: {
         flex: 1,
+        justifyContent: "flex-end"
     },
     item: {
         backgroundColor: "#2f55a4",

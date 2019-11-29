@@ -36,7 +36,7 @@ class MyContacts extends React.Component {
     saveContacts() {
         let userId = this.props.loggedUser.id;
         const { contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName } = this.state;
-        
+
         Keyboard.dismiss();
         fetch(`${urlApi}/users/${userId}/contact`, {
             method: "PUT",
@@ -54,64 +54,60 @@ class MyContacts extends React.Component {
             })
     }
     render() {
-        const { contactA,contactAName, contactAFirstName, contactB, contactBName, contactBFirstName } = this.state;
+        const { contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName } = this.state;
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-                <ScrollView style={styles.container} >
-                <View style={styles.container2}>
-                    <Image source={escalier} style={styles.mark} resizeMode="cover" />
-                    <Text style={styles.title}>Mes Contacts</Text>
-                    <Text style={styles.text}>Enregistrez ici l'adresse email des deux contacts à qui vous voulez transmettre  votre playlist</Text>
-                    
-                    <Text style={styles.label}>Contact 1</Text>
-                    <View style={styles.container3}>
-                    <TextInput
-                        style={styles.inputname}
-                        placeholder="Prénom"
-                        value={contactAFirstName}
-                        onChangeText={(contactAFirstName) => this.setState({ contactAFirstName })}
-                    />
-                    <TextInput
-                        style={styles.inputname}
-                        placeholder="Nom"
-                        value={contactAName}
-                        onChangeText={(contactAName) => this.setState({ contactAName })}
-                    /> 
+                <Image source={escalier} style={styles.mark} resizeMode="cover" />
+                <Text style={styles.title}>Mes Contacts</Text>
+                    <View style={styles.container2}> 
+                        <Text style={styles.label}>Contact 1</Text>
+                        <View style={styles.container3}>
+                            <TextInput
+                                style={styles.inputname}
+                                placeholder="Prénom"
+                                value={contactAFirstName}
+                                onChangeText={(contactAFirstName) => this.setState({ contactAFirstName })}
+                            />
+                            <TextInput
+                                style={styles.inputname}
+                                placeholder="Nom"
+                                value={contactAName}
+                                onChangeText={(contactAName) => this.setState({ contactAName })}
+                            />
+                        </View>
+                        <TextInput
+                            style={styles.signin}
+                            placeholder="Contact 1"
+                            value={contactA}
+                            onChangeText={(contactA) => this.setState({ contactA })}
+                        />
+                        <Text style={styles.label}>Contact 2</Text>
+                        <View style={styles.container3}>
+                            <TextInput
+                                style={styles.inputname}
+                                placeholder="Prénom"
+                                value={contactBFirstName}
+                                onChangeText={(contactBFirstName) => this.setState({ contactBFirstName })}
+                            />
+                            <TextInput
+                                style={styles.inputname}
+                                placeholder="Nom"
+                                value={contactBName}
+                                onChangeText={(contactBName) => this.setState({ contactBName })}
+                            />
+                        </View>
+                        <TextInput
+                            style={styles.signin}
+                            placeholder="Contact 2"
+                            value={contactB}
+                            onChangeText={(contactB) => this.setState({ contactB })}
+                        />
+                        <Button
+                            buttonStyle={styles.button}
+                            title="Enregistrez ces Contacts"
+                            onPress={() => this.saveContacts()}
+                        />
                     </View>
-                    <TextInput
-                        style={styles.signin}
-                        placeholder="Contact 1"
-                        value={contactA}
-                        onChangeText={(contactA) => this.setState({ contactA })}
-                    />
-                    <Text style={styles.label}>Contact 2</Text>
-                    <View style={styles.container3}>
-                    <TextInput
-                        style={styles.inputname}
-                        placeholder="Prénom"
-                        value={contactBFirstName}
-                        onChangeText={(contactBFirstName) => this.setState({ contactBFirstName })}
-                    />
-                    <TextInput
-                        style={styles.inputname}
-                        placeholder="Nom"
-                        value={contactBName}
-                        onChangeText={(contactBName) => this.setState({ contactBName })}
-                    /> 
-                    </View>
-                    <TextInput
-                        style={styles.signin}
-                        placeholder="Contact 2"
-                        value={contactB}
-                        onChangeText={(contactB) => this.setState({ contactB })}
-                    />
-                    <Button
-                        buttonStyle={styles.button}
-                        title="Enregistrez ces Contacts"
-                        onPress={() => this.saveContacts()}
-                    />
-                    </View>
-                </ScrollView>
             </KeyboardAvoidingView>
         );
     }
@@ -122,7 +118,7 @@ const styles = StyleSheet.create({
     },
     container2: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "center"
     },
     container3: {
         flexDirection: "row",
@@ -134,16 +130,13 @@ const styles = StyleSheet.create({
         marginRight: scale(16),
         paddingVertical: scale(8),
         alignItems: "center",
-        justifyContent: "center",
         marginBottom: scale(20),
-        // marginTop: scale(24),
         borderRadius: 50,
         paddingLeft: scale(20),
         color: "#ffffff"
     },
     inputname: {
         backgroundColor: "#2f55a4",
-        // marginLeft: 5,
         marginRight: 5,
         marginBottom: 5,
         height: 40,
@@ -158,7 +151,6 @@ const styles = StyleSheet.create({
         marginRight: scale(50),
         paddingVertical: scale(8),
         alignItems: "center",
-        justifyContent: "center",
         marginTop: scale(15),
         borderRadius: 50
     },
@@ -172,7 +164,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#ffffff",
         marginTop: 50,
-        marginBottom: 50
     },
     label: {
         color: "#0059b3",

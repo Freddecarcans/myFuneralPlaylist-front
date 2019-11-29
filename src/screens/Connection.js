@@ -11,7 +11,7 @@ class Connection extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: "exemple2@mail",
+			email: "exemple3@mail",
 			password: "exemple",
 		}
 	}
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
 	},
 	container2: {
 		flex: 1,
-		justifyContent: "flex-start"
+		justifyContent: "center"
 	},
 	signin: {
 		backgroundColor: "#2f55a4",
