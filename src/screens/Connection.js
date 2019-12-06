@@ -11,7 +11,7 @@ class Connection extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: "exemple@mail",
+			email: "exemple@mail.com",
 			password: "Exemple",
 		}
 	}

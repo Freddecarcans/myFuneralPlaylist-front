@@ -132,5 +132,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         marginTop: scale(24),
         borderRadius: 50
+    },
+    icon:{
+        width: 40,
+        height: 40,
     }
 });

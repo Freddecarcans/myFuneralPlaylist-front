@@ -97,13 +97,13 @@ const styles = StyleSheet.create({
 	},
 	contenu: {
 		color: "#2f55a4",
-		fontSize: 15,
+		fontSize: 20,
 		textAlign: "center",
 		marginTop: 100
 	},
 	contenu2: {
 		color: "#2f55a4",
-		fontSize: 15,
+		fontSize: 20,
 		textAlign: "center",
 		marginTop: 0
 	}

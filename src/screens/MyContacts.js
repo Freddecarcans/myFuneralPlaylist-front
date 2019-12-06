@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Text, View, TextInput, StyleSheet, ScrollView,
+    Text, View, TextInput, StyleSheet, TouchableOpacity,
     Image, Alert, Keyboard, KeyboardAvoidingView
 } from 'react-native';
 import { scale } from 'react-native-size-matters';
@@ -58,10 +58,11 @@ class MyContacts extends React.Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <Image source={escalier} style={styles.mark} resizeMode="cover" />
-                <Text style={styles.title}>Mes Contacts</Text>
+                <Text style={styles.title}>Mes Contacts</Text>              
                 <Icon name="home" color="#fff"  style={styles.icon} 
 					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
 				/>
+                <Text style={styles.contenu}>Enregistrez les coordonnées des deux personnes à qui vous voulez transmettre votre playlist</Text>
                     <View style={styles.container2}> 
                         <Text style={styles.label}>Contact 1</Text>
                         <View style={styles.container3}>
@@ -175,6 +176,16 @@ const styles = StyleSheet.create({
     text: {
         color: "#ffffff",
         textAlign: "center",
+    },
+    contenu: {
+		color: "#fff",
+		fontSize: 20,
+		textAlign: "center",
+		marginTop: 10
+    },
+    icon:{
+        width: 40,
+        height: 40,
     }
 });
 export default MyContacts;

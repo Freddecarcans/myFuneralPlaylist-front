@@ -65,6 +65,8 @@ class Register extends React.Component {
 					<View>
 						<Text style={styles.text}>Email</Text>
 						<TextInput style={styles.signup}
+							placeholder="Email"
+							onChangeText={(email) => this.setState({ email })}
 							value={this.state.email}
 						/>
 						
