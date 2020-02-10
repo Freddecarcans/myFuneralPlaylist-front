@@ -3,7 +3,7 @@ import {
 	View, Text, TextInput, StyleSheet,
 	KeyboardAvoidingView, Image, Keyboard, Alert
 } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import { Button, Icon, FormLabel } from 'react-native-elements';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
 import { urlApi } from '../../constants';
@@ -20,9 +20,6 @@ class Register extends React.Component {
 			adress: props.user.adress,
 			zipcode: props.user.zipcode,
 			town: props.user.town,
-			// contactB: props.user.contactB,
-			// contactBName: props.user.contactBName,
-			// contactBFirstName: props.user.contactBFirstName
 		};
 	}
 
@@ -106,29 +103,7 @@ class Register extends React.Component {
 								onChangeText={(town) => this.setState({ town })}
 							/>
 						</View>
-{/* 						
-						<Text style={styles.text}>Contact 2</Text>
-						<View style={styles.container3}>
-							<TextInput
-								style={styles.inputname}
-								placeholder="Prénom"
-								value={this.state.contactBFirstName}
-								onChangeText={(contactBFirstName) => this.setState({ contactBFirstName })}
-							/>
-							<TextInput
-								style={styles.inputname}
-								placeholder="Nom"
-								value={this.state.contactBName}
-								onChangeText={(contactBName) => this.setState({ contactBName })}
-							/>
-						</View>
-						<TextInput
-							style={styles.signin}
-							placeholder="Email Contact 2"
-							keyboardType="email-address"
-							value={this.state.contactB}
-							onChangeText={(contactB) => this.setState({ contactB })}
-						/> */}
+
 						<TouchableOpacity>
 							<Button
 								buttonStyle={styles.button}

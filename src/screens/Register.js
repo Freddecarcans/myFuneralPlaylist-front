@@ -18,8 +18,9 @@ class Register extends React.Component {
 			verifypassword: "",
 			name: "",
 			firstname: "",
-			contactA: "",
-			contactB: ""
+			adress: "",
+			zipcode: "",
+			town:""
 		};
 	}
 
@@ -28,7 +29,7 @@ class Register extends React.Component {
 	}
 
 	handleSubmit() {
-		const { email, password, name, firstname, contactA, contactB } = this.state;
+		const { email, password, name, firstname, adress, zipcode, town } = this.state;
 		Keyboard.dismiss();
 		if (this.state.password.length < 6) {
 			Alert.alert('Erreur mot de passe', 'Le mot de passe doit contenir au moins 6 caractères')
@@ -42,7 +43,7 @@ class Register extends React.Component {
 					"Content-Type": "application/json",
 					'Accept': 'application/json'
 				}),
-				body: JSON.stringify({ email, password, name, firstname, contactA, contactB }),
+				body: JSON.stringify({ email, password, name, firstname, adress, zipcode, town }),
 			})
 				.then(res => {
 					res.json()
@@ -125,6 +126,25 @@ class Register extends React.Component {
 							value={this.state.firstname}
 						>
 						</TextInput>
+						<Text style={styles.text}>Adresse</Text>
+						<TextInput
+							style={styles.signup}
+							placeholder="N° et Voie"
+							onChangeText={(adress) => this.setState({ adress })}
+						/>
+						<View style={styles.container3}>
+							<TextInput
+								style={styles.inputname}
+								placeholder="Code postal"
+								onChangeText={(zipcode) => this.setState({ zipcode })}
+							/>
+							<TextInput
+								label="Ville"
+								style={styles.inputname}
+								placeholder="Ville"
+								onChangeText={(town) => this.setState({ town })}
+							/>
+						</View>
 						<TouchableOpacity>
 							<Button
 								buttonStyle={styles.button}
@@ -147,6 +167,10 @@ const styles = StyleSheet.create({
 	container2: {
 		flex: 1,
 	},
+	container3: {
+		flexDirection: "row",
+		justifyContent: "space-around"
+	},
 	signup: {
 		backgroundColor: "#2f55a4",
 		marginLeft: scale(16),
@@ -157,6 +181,16 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		borderRadius: 50,
 		paddingLeft: scale(20),
+		color: "#ffffff"
+	},
+	inputname: {
+		backgroundColor: "#2f55a4",
+		marginRight: 5,
+		marginBottom: 5,
+		height: 40,
+		paddingLeft: scale(20),
+		width: "40%",
+		borderRadius: 50,
 		color: "#ffffff"
 	},
 	button: {
