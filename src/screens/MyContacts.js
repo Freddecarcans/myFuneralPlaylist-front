@@ -17,31 +17,47 @@ class MyContacts extends React.Component {
             contactAFirstName: props.contactAFirstName,
             contactB: props.contactB,
             contactBName: props.contactBName,
-            contactBFirstName: props.contactBFirstName
+            contactBFirstName: props.contactBFirstName,
+            isEditable: false
         }
     }
     componentDidMount() {
-        fetch(`${urlApi}/users/${this.props.loggedUser.id}`)
+        const token = this.props.loggedUser.token;
+        this.props.fetchUserStart();
+        fetch(`${urlApi}/users/contacts/${this.props.loggedUser.id}`, {
+            method: 'GET',
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            })
+        })
             .then(response => response.json())
             .then(data => {
                 this.props.fetchUserSuccess(data);
             })
             .catch(error => this.props.fetchUserError(error));
     }
+
     // App navigation
     goToHomeAfterLogin() {
         this.props.navigation.navigate('HomeAfterLogin');
     }
+    
     //  Enregistrer les contacts
     saveContacts() {
-        let userId = this.props.loggedUser.id;
+        const userId = this.props.loggedUser.id;
+        const token = this.props.loggedUser.token;
         const { contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName } = this.state;
 
         Keyboard.dismiss();
-        fetch(`${urlApi}/users/${userId}/contact`, {
+
+        fetch(`${urlApi}/users/contacts/${userId}`, {
             method: "PUT",
             headers: new Headers({
-                "Content-Type": "application/json"
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
             }),
             body: JSON.stringify({ contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName }),
         })
@@ -58,60 +74,74 @@ class MyContacts extends React.Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <Image source={escalier} style={styles.mark} resizeMode="cover" />
-                <Text style={styles.title}>Mes Contacts</Text>              
-                <Icon name="home" color="#fff"  style={styles.icon} 
-					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
-				/>
-                <Text style={styles.contenu}>Enregistrez les coordonnées des deux personnes à qui vous voulez transmettre votre playlist</Text>
-                    <View style={styles.container2}> 
-                        <Text style={styles.label}>Contact 1</Text>
-                        <View style={styles.container3}>
-                            <TextInput
-                                style={styles.inputname}
-                                placeholder="Prénom"
-                                value={contactAFirstName}
-                                onChangeText={(contactAFirstName) => this.setState({ contactAFirstName })}
-                            />
-                            <TextInput
-                                style={styles.inputname}
-                                placeholder="Nom"
-                                value={contactAName}
-                                onChangeText={(contactAName) => this.setState({ contactAName })}
-                            />
-                        </View>
+                <Text style={styles.title}>Mes Contacts</Text>
+                <Icon name="home" color="#fff" style={styles.icon}
+                    onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
+                />
+                {this.state.contactA === "" && this.state.contactB === "" &&
+                    <Text style={styles.contenu}>
+                        Enregistrer les coordonnées des deux personnes à qui vous voulez transmettre votre playlist
+                   </Text>}
+                {this.state.contactA !== "" && this.state.contactB !== "" &&
+                    <Text style={styles.contenu}>
+                        Modifier les coordonnées des deux personnes à qui vous voulez transmettre votre playlist
+                   </Text>}
+                <View style={styles.container2}>
+                    <Text style={styles.label}>Contact 1</Text>
+                    <View style={styles.container3}>
                         <TextInput
-                            style={styles.signin}
-                            placeholder="Contact 1"
-                            value={contactA}
-                            onChangeText={(contactA) => this.setState({ contactA })}
+                            style={styles.inputname}
+                            placeholder="Prénom"
+                            value={contactAFirstName}
+                            onChangeText={(contactAFirstName) => this.setState({ contactAFirstName })}
                         />
-                        <Text style={styles.label}>Contact 2</Text>
-                        <View style={styles.container3}>
-                            <TextInput
-                                style={styles.inputname}
-                                placeholder="Prénom"
-                                value={contactBFirstName}
-                                onChangeText={(contactBFirstName) => this.setState({ contactBFirstName })}
-                            />
-                            <TextInput
-                                style={styles.inputname}
-                                placeholder="Nom"
-                                value={contactBName}
-                                onChangeText={(contactBName) => this.setState({ contactBName })}
-                            />
-                        </View>
                         <TextInput
-                            style={styles.signin}
-                            placeholder="Contact 2"
-                            value={contactB}
-                            onChangeText={(contactB) => this.setState({ contactB })}
-                        />
-                        <Button
-                            buttonStyle={styles.button}
-                            title="Enregistrez ces Contacts"
-                            onPress={() => this.saveContacts()}
+                            style={styles.inputname}
+                            placeholder="Nom"
+                            value={contactAName}
+                            onChangeText={(contactAName) => this.setState({ contactAName })}
                         />
                     </View>
+                    <TextInput
+                        style={styles.signin}
+                        placeholder="Email Contact 1"
+                        keyboardType="email-address"
+                        value={contactA}
+                        onChangeText={(contactA) => this.setState({ contactA })}
+                    />
+                    <Text style={styles.label}>Contact 2</Text>
+                    <View style={styles.container3}>
+                        <TextInput
+                            style={styles.inputname}
+                            placeholder="Prénom"
+                            value={contactBFirstName}
+                            onChangeText={(contactBFirstName) => this.setState({ contactBFirstName })}
+                        />
+                        <TextInput
+                            style={styles.inputname}
+                            placeholder="Nom"
+                            value={contactBName}
+                            onChangeText={(contactBName) => this.setState({ contactBName })}
+                        />
+                    </View>
+                    <TextInput
+                        style={styles.signin}
+                        placeholder="Email Contact 2"
+                        keyboardType="email-address"
+                        value={contactB}
+                        onChangeText={(contactB) => this.setState({ contactB })}
+                    />
+                    {this.state.contactA === "" && this.state.contactB === "" && <Button
+                        buttonStyle={styles.button}
+                        title="Enregistrer ces Contacts"
+                        onPress={() => this.saveContacts()}
+                    />}
+                    {this.state.contactA !== "" && this.state.contactB !== "" && <Button
+                        buttonStyle={styles.button}
+                        title="Modifier mes Contacts"
+                        onPress={() => this.saveContacts()}
+                    />}
+                </View>
             </KeyboardAvoidingView>
         );
     }
@@ -178,12 +208,12 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     contenu: {
-		color: "#fff",
-		fontSize: 20,
-		textAlign: "center",
-		marginTop: 10
+        color: "#fff",
+        fontSize: 20,
+        textAlign: "center",
+        marginTop: 10
     },
-    icon:{
+    icon: {
         width: 40,
         height: 40,
     }

@@ -12,7 +12,7 @@ function EmailScreen(props) {
     const goToRegister = () => {
         props.navigation.navigate('Register', { email: { email } });
     }
-
+    
     const submitEmail = async () => {
         Keyboard.dismiss();
         try {
@@ -43,8 +43,10 @@ function EmailScreen(props) {
 				/>
             <TextInput style={styles.signin}
                 placeholder="Email"
+                keyboardType= "email-address"
                 onChangeText={email => setEmail(email)}
                 value={email}
+                
             >
             </TextInput>
             <TouchableOpacity>

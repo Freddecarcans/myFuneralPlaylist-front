@@ -98,6 +98,7 @@ class Register extends React.Component {
 						<Text style={styles.text}>Mot de passe</Text>
 						<TextInput style={styles.signup}
 							placeholder="Mot de passe"
+							secureTextEntry
 							onChangeText={(password) => this.setState({ password })}
 							value={this.state.password}
 						>
@@ -105,6 +106,7 @@ class Register extends React.Component {
 						<Text style={styles.text}>Vérifier le mot de passe</Text>
 						<TextInput style={styles.signup}
 							placeholder="Vérifier le mot de passe"
+							secureTextEntry
 							onChangeText={(verifypassword) => this.setState({ verifypassword })}
 							value={this.state.verifypassword}
 						>

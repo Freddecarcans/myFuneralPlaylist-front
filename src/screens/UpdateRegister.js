@@ -3,7 +3,7 @@ import {
 	View, Text, TextInput, StyleSheet,
 	KeyboardAvoidingView, Image, Keyboard, Alert
 } from 'react-native';
-import { Button, Icon } from "react-native-elements";
+import { Button, Icon } from 'react-native-elements';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
 import { urlApi } from '../../constants';
@@ -17,12 +17,12 @@ class Register extends React.Component {
 			email: props.user.email,
 			name: props.user.name,
 			firstname: props.user.firstname,
-			contactA: props.user.contactA,
-			contactAName: props.user.contactAName,
-			contactAFirstName: props.user.contactAFirstName,
-			contactB: props.user.contactB,
-			contactBName: props.user.contactBName,
-			contactBFirstName: props.user.contactBFirstName
+			adress: props.user.adress,
+			zipcode: props.user.zipcode,
+			town: props.user.town,
+			// contactB: props.user.contactB,
+			// contactBName: props.user.contactBName,
+			// contactBFirstName: props.user.contactBFirstName
 		};
 	}
 
@@ -31,17 +31,18 @@ class Register extends React.Component {
 	}
 
 	handleSubmit() {
-		const { email, name, firstname, contactA, contactAFirstName, contactAName, contactB, contactBFirstName, contactBName } = this.state;
-		const { id } = this.state;
+		const { id, email, name, firstname, adress, zipcode, town } = this.state;
+		const token = this.props.loggedUser.token;
 		Keyboard.dismiss();
 
 		fetch(`${urlApi}/users/account/${id}`, {
 			method: "PUT",
 			headers: new Headers({
 				"Content-Type": "application/json",
-				'Accept': 'application/json'
+				"Accept": "application/json",
+				"Authorization": "Bearer " + token
 			}),
-			body: JSON.stringify({ email, name, firstname, contactA, contactAFirstName, contactAName, contactB, contactBFirstName, contactBName }),
+			body: JSON.stringify({ email, name, firstname, adress, zipcode, town }),
 		})
 			.then(res => {
 				res.json()
@@ -58,7 +59,7 @@ class Register extends React.Component {
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Modifier mes informations</Text>
-				<Icon name="home" color="#fff"  style={styles.icon} 
+				<Icon name="home" color="#fff" style={styles.icon}
 					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
 				/>
 				<ScrollView style={styles.container2}>
@@ -66,10 +67,11 @@ class Register extends React.Component {
 						<Text style={styles.text}>Email</Text>
 						<TextInput style={styles.signup}
 							placeholder="Email"
+							keyboardType="email-address"
 							onChangeText={(email) => this.setState({ email })}
 							value={this.state.email}
 						/>
-						
+
 						<Text style={styles.text}>Nom</Text>
 						<TextInput style={styles.signup}
 							placeholder="Nom"
@@ -82,27 +84,29 @@ class Register extends React.Component {
 							onChangeText={(firstname) => this.setState({ firstname })}
 							value={this.state.firstname}
 						/>
-						<Text style={styles.text}>Contact 1</Text>
+						<Text style={styles.text}>Adresse</Text>
+						<TextInput
+							style={styles.signin}
+							placeholder="N° et Voie"
+							value={this.state.adress}
+							onChangeText={(adress) => this.setState({ adress })}
+						/>
 						<View style={styles.container3}>
 							<TextInput
 								style={styles.inputname}
-								placeholder="Prénom"
-								value={this.state.contactAFirstName}
-								onChangeText={(contactAFirstName) => this.setState({ contactAFirstName })}
+								placeholder="Code postal"
+								value={this.state.zipcode}
+								onChangeText={(zipcode) => this.setState({ zipcode })}
 							/>
 							<TextInput
+								label="Ville"
 								style={styles.inputname}
-								placeholder="Nom"
-								value={this.state.contactAName}
-								onChangeText={(contactAName) => this.setState({ contactAName })}
+								placeholder="Ville"
+								value={this.state.town}
+								onChangeText={(town) => this.setState({ town })}
 							/>
 						</View>
-						<TextInput
-							style={styles.signin}
-							placeholder="Contact 1"
-							value={this.state.contactA}
-							onChangeText={(contactA) => this.setState({ contactA })}
-						/>
+{/* 						
 						<Text style={styles.text}>Contact 2</Text>
 						<View style={styles.container3}>
 							<TextInput
@@ -120,10 +124,11 @@ class Register extends React.Component {
 						</View>
 						<TextInput
 							style={styles.signin}
-							placeholder="Contact 2"
+							placeholder="Email Contact 2"
+							keyboardType="email-address"
 							value={this.state.contactB}
 							onChangeText={(contactB) => this.setState({ contactB })}
-						/>
+						/> */}
 						<TouchableOpacity>
 							<Button
 								buttonStyle={styles.button}

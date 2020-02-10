@@ -14,10 +14,18 @@ export default class MyPlaylist extends React.Component {
     }
 
     componentDidMount() {
-        let id = this.props.loggedUser.id
+        const id = this.props.loggedUser.id;
+        const token = this.props.loggedUser.token;
         try {
             this.props.playlistFetch();
-            const response = fetch(`${urlApi}/users/${id}/tracks`)
+            fetch(`${urlApi}/users/tracks/${id}`, {
+                method: 'GET',
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                })
+            })
                 .then(response => response.json())
                 .then(data => {
                     this.props.playlistFetched(data);
@@ -36,8 +44,14 @@ export default class MyPlaylist extends React.Component {
     }
 
     deleteTrack(idtitle) {
-        fetch(`${urlApi}/users/${this.props.loggedUser.id}/tracks/${idtitle}`, {
-            method: 'DELETE'
+        const token = this.props.loggedUser.token;
+        fetch(`${urlApi}/users/tracks/${idtitle}`, {
+            method: 'DELETE',
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            })
         })
             .then(response => {
                 response.json();
@@ -68,9 +82,9 @@ export default class MyPlaylist extends React.Component {
             <View style={styles.container}>
                 <Image source={escalier} style={styles.mark} resizeMode="cover" />
                 <Text style={styles.title}>Ma PlayList</Text>
-                <Icon name="home" color="#fff"  style={styles.icon} 
-					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
-				/>
+                <Icon name="home" color="#fff" style={styles.icon}
+                    onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
+                />
                 {loading && <ActivityIndicator size="large" color="#0000ff" />}
                 {!loading &&
                     <View style={styles.container2}>
@@ -80,7 +94,7 @@ export default class MyPlaylist extends React.Component {
                             keyExtractor={({ id }, index) => index.toString()}
                             renderItem={({ item }) => {
                                 return (
-                                    <TouchableOpacity style={styles.item} onPress={toto => this.handleDelete(item.idtitle)}>
+                                    <TouchableOpacity style={styles.item} onPress={() => this.handleDelete(item.idtitle)}>
                                         <Text style={styles.itemText}> Artiste:{item.artist}</Text>
                                         <Text style={styles.itemText}> Titre: {item.title}</Text>
                                     </TouchableOpacity>
@@ -133,7 +147,7 @@ const styles = StyleSheet.create({
         marginTop: scale(24),
         borderRadius: 50
     },
-    icon:{
+    icon: {
         width: 40,
         height: 40,
     }

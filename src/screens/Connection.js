@@ -42,9 +42,9 @@ class Connection extends React.Component {
 			})
 			.then((user) => {
 				userLogged(user);
-				if (user !== undefined) {
+				// if (user !== undefined) {
 					this.goToHomeAfterLogin();
-				}
+				// }
 			})
 	}
 	render() {
@@ -59,6 +59,7 @@ class Connection extends React.Component {
 					<Text style={styles.text}>Email</Text>
 					<TextInput style={styles.signin}
 						placeholder="Email"
+						keyboardType="email-address"
 						onChangeText={email => this.setState({ email })}
 						value={this.state.email}
 					>
@@ -66,6 +67,7 @@ class Connection extends React.Component {
 					<Text style={styles.text}>Mot de passe</Text>
 					<TextInput style={styles.signin}
 						placeholder="Mot de passe"
+						secureTextEntry
 						onChangeText={password => this.setState({ password })}
 						value={this.state.password}
 					>
