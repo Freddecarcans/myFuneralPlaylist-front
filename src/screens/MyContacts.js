@@ -78,14 +78,10 @@ class MyContacts extends React.Component {
                 <Icon name="home" color="#fff" style={styles.icon}
                     onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
                 />
-                {this.state.contactA === "" && this.state.contactB === "" &&
                     <Text style={styles.contenu}>
                         Enregistrer les coordonnées des deux personnes à qui vous voulez transmettre votre playlist
-                   </Text>}
-                {this.state.contactA !== "" && this.state.contactB !== "" &&
-                    <Text style={styles.contenu}>
-                        Modifier les coordonnées des deux personnes à qui vous voulez transmettre votre playlist
-                   </Text>}
+                   </Text>
+                
                 <View style={styles.container2}>
                     <Text style={styles.label}>Contact 1</Text>
                     <View style={styles.container3}>
@@ -131,16 +127,12 @@ class MyContacts extends React.Component {
                         value={contactB}
                         onChangeText={(contactB) => this.setState({ contactB })}
                     />
-                    {this.state.contactA === "" && this.state.contactB === "" && <Button
+                    <Button
                         buttonStyle={styles.button}
                         title="Enregistrer ces Contacts"
                         onPress={() => this.saveContacts()}
-                    />}
-                    {this.state.contactA !== "" && this.state.contactB !== "" && <Button
-                        buttonStyle={styles.button}
-                        title="Modifier mes Contacts"
-                        onPress={() => this.saveContacts()}
-                    />}
+                    />
+                   
                 </View>
             </KeyboardAvoidingView>
         );
