@@ -32,7 +32,6 @@ class HomeAfterLogin extends React.Component {
 	}
 	async componentDidMount() {
 		const token = this.props.loggedUser.token;
-		try {
 			this.props.fetchUserStart();
 			// await fetch(`${urlApi}/users/profile/${this.props.loggedUser.id}`)
 			await fetch(`${urlApi}/users/profile/${this.props.loggedUser.id}`, {
@@ -47,7 +46,6 @@ class HomeAfterLogin extends React.Component {
 				.then(data => {
 					this.props.fetchUserSuccess(data);
 				})
-		} catch (error) { this.props.fetchUserError(error) }
 	}
 
 	render() {

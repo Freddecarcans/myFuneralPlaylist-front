@@ -16,7 +16,6 @@ class MyAccount extends React.Component {
     async componentDidMount() {
         const id = this.props.loggedUser.id;
         const token = this.props.loggedUser.token;
-        try {
             this.props.fetchUserStart();
             await fetch(`${urlApi}/users/profile/${id}`, {
                 method: 'GET',
@@ -30,10 +29,6 @@ class MyAccount extends React.Component {
                 .then(data => {
                     this.props.fetchUserSuccess(data);
                 });
-        }
-        catch (error) {
-            this.props.fetchUserError(error);
-        }
     }
 
     goToUpdateRegister() {

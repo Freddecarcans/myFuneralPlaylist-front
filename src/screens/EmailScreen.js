@@ -15,7 +15,6 @@ function EmailScreen(props) {
     
     const submitEmail = async () => {
         Keyboard.dismiss();
-        try {
             const response = await fetch(`${urlApi}/auth/email/${email}`);
             const data = await response.json();
             if (data[0] && data !== []) {
@@ -27,10 +26,6 @@ function EmailScreen(props) {
             else {
                 goToRegister();
             }
-        } catch (error) {
-            Alert.alert("Une erreur s'est produite, veuillez réessayer" )
-            console.error(error)
-        }
     }
 
     return (
