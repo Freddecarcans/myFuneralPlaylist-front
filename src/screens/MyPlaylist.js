@@ -53,9 +53,9 @@ export default class MyPlaylist extends React.Component {
                 'Authorization': 'Bearer ' + token
             })
         })
-            .then(response => {
-                response.json();
-                this.props.trackDeleted(idtitle);
+            .then(res => {
+                if (res.status === 200) {
+                    this.props.trackDeleted(idtitle);}
             })
             .catch(error => this.props.playlistFetchError(error));
     }

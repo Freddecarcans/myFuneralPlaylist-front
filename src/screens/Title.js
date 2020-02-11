@@ -30,7 +30,6 @@ class Title extends React.Component {
 			body: JSON.stringify({ title, artist, user_id }),
 		})
 			.then(res => {
-				res.json()
 				if (res.status === 201) {
 					Alert.alert('Titre ajouté avec succès', '', [
 						{

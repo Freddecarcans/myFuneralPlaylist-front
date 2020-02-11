@@ -42,7 +42,6 @@ class Register extends React.Component {
 			body: JSON.stringify({ email, name, firstname, adress, zipcode, town }),
 		})
 			.then(res => {
-				res.json()
 				if (res.status === 201) {
 					Alert.alert('Compte modifié avec succès',
 						'',

@@ -62,7 +62,6 @@ class MyContacts extends React.Component {
             body: JSON.stringify({ contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName }),
         })
             .then(res => {
-                res.json()
                 if (res.status === 201) {
                     Alert.alert('Contacts modifiés avec succès', '', [
                         { text: 'OK', onPress: () => { this.goToHomeAfterLogin() } }])
