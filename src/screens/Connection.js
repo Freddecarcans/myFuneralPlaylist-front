@@ -1,36 +1,24 @@
 
 import React from 'react';
-import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert, KeyboardAvoidingView } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button, Header } from "react-native-elements";
-import { userLogged } from '../actions/auth.action';
+import { Button, Icon } from "react-native-elements";
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
-
 class Connection extends React.Component {
-	static navigationOptions = {
-		header: null,
-	};
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: "",
-			password: "",
+			email: "exemple@mail.com",
+			password: "Exemple",
 		}
 	}
-
 
 	goToHomeAfterLogin() {
 		const { navigate } = this.props.navigation;
 		navigate('HomeAfterLogin');
-	}
-
-	componentDidMount() {
-
 	}
 
 	handleSubmit = async () => {
@@ -54,21 +42,24 @@ class Connection extends React.Component {
 			})
 			.then((user) => {
 				userLogged(user);
-				if (user !== undefined) {
+				// if (user !== undefined) {
 					this.goToHomeAfterLogin();
-				}
+				// }
 			})
 	}
 	render() {
-
 		return (
-			<View style={styles.container}>
+			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Connexion</Text>
+				<Icon name="home" color="#fff"  style={styles.icon} 
+					onPress={() => this.props.navigation.navigate('Home')}
+				/>
 				<View style={styles.container2}>
 					<Text style={styles.text}>Email</Text>
 					<TextInput style={styles.signin}
 						placeholder="Email"
+						keyboardType="email-address"
 						onChangeText={email => this.setState({ email })}
 						value={this.state.email}
 					>
@@ -76,6 +67,7 @@ class Connection extends React.Component {
 					<Text style={styles.text}>Mot de passe</Text>
 					<TextInput style={styles.signin}
 						placeholder="Mot de passe"
+						secureTextEntry
 						onChangeText={password => this.setState({ password })}
 						value={this.state.password}
 					>
@@ -89,23 +81,20 @@ class Connection extends React.Component {
 						/>
 					</TouchableOpacity>
 				</View>
-			</View >
+			</KeyboardAvoidingView >
 		);
 	}
 }
 
-
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "grey",
+		// backgroundColor: "grey",
 		flex: 1
 	},
-
 	container2: {
 		flex: 1,
-		justifyContent: "flex-start"
+		justifyContent: "center"
 	},
-
 	signin: {
 		backgroundColor: "#2f55a4",
 		marginLeft: scale(16),
@@ -114,18 +103,15 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		marginBottom: scale(24),
-		// marginTop: scale(24),
 		borderRadius: 50,
 		paddingLeft: scale(20),
 		color: "#ffffff"
 	},
-
 	textinput: {
 		marginLeft: 5,
 		marginRight: 5,
 		height: 50,
 		paddingLeft: 5,
-
 	},
 	button: {
 		backgroundColor: "#2f55a4",
@@ -151,9 +137,12 @@ const styles = StyleSheet.create({
 	text: {
 		color: "#0059b3",
 		marginLeft: scale(50)
+	},
+	icon: {
+		// marginTop: 20
+		width: 30,
+		height: 30
 	}
 });
 
-const mdtp = dispatch => bindActionCreators({ userLogged }, dispatch);
-
-export default connect(null, mdtp)(Connection);
+export default Connection;

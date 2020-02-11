@@ -1,9 +1,9 @@
 import React from 'react';
-
 import { View, Dimensions, Image, Text, StyleSheet, AsyncStorage } from 'react-native';
 import { Button } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
+import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
 const { width } = Dimensions.get("window");
@@ -30,9 +30,24 @@ class HomeAfterLogin extends React.Component {
 		const { navigate } = this.props.navigation;
 		navigate('MyContacts')
 	}
-	componentWillMount() {
-		
+	async componentDidMount() {
+		const token = this.props.loggedUser.token;
+			this.props.fetchUserStart();
+			// await fetch(`${urlApi}/users/profile/${this.props.loggedUser.id}`)
+			await fetch(`${urlApi}/users/profile/${this.props.loggedUser.id}`, {
+				method: 'GET',
+				headers: new Headers({
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+					'Authorization': 'Bearer ' + token
+				})
+			})
+				.then(response => response.json())
+				.then(data => {
+					this.props.fetchUserSuccess(data);
+				})
 	}
+
 	render() {
 		return (
 			<View style={styles.container}>

@@ -3,7 +3,7 @@ import {
 	View, Text, TextInput, StyleSheet,
 	KeyboardAvoidingView, Image, Keyboard, Alert
 } from 'react-native';
-import { Button, Icon } from "react-native-elements";
+import { Button, Icon, FormLabel } from 'react-native-elements';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { scale } from 'react-native-size-matters';
 import { urlApi } from '../../constants';
@@ -13,14 +13,13 @@ class Register extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: this.props.navigation.state.params.email.email,
-			password: "",
-			verifypassword: "",
-			name: "",
-			firstname: "",
-			adress: "",
-			zipcode: "",
-			town:""
+			id: props.user.iduser,
+			email: props.user.email,
+			name: props.user.name,
+			firstname: props.user.firstname,
+			adress: props.user.adress,
+			zipcode: props.user.zipcode,
+			town: props.user.town,
 		};
 	}
 
@@ -29,54 +28,26 @@ class Register extends React.Component {
 	}
 
 	handleSubmit() {
-		const { email, password, name, firstname, adress, zipcode, town } = this.state;
+		const { id, email, name, firstname, adress, zipcode, town } = this.state;
+		const token = this.props.loggedUser.token;
 		Keyboard.dismiss();
-		if (this.state.password.length < 6) {
-			Alert.alert('Erreur mot de passe', 'Le mot de passe doit contenir au moins 6 caractères')
-		}
-		else if (this.state.password !== this.state.verifypassword) {
-			Alert.alert('Erreur mot de passe', 'Les mots de passe ne sont pas identiques', [{ text: 'OK' }])
-		} else {
-			fetch(`${urlApi}/auth/signup`, {
-				method: "POST",
-				headers: new Headers({
-					"Content-Type": "application/json",
-					'Accept': 'application/json'
-				}),
-				body: JSON.stringify({ email, password, name, firstname, adress, zipcode, town }),
-			})
-				.then(res => {
-					res.json()
-					if (res.status === 201) {
-						this.getUserInfo();
-						Alert.alert('Compte créé avec succès',
-							'',
-							[{ text: "OK", onPress: () => this.goToHomeAfterLogin() }])
-					}
-				})
-		}
-	}
 
-	getUserInfo = async () => {
-		const { userLogged } = this.props;
-		const { email, password } = this.state;
-
-		await fetch(`${urlApi}/auth/signin`, {
-			method: 'POST',
+		fetch(`${urlApi}/users/account/${id}`, {
+			method: "PUT",
 			headers: new Headers({
-				'Content-Type': 'application/json',
+				"Content-Type": "application/json",
+				"Accept": "application/json",
+				"Authorization": "Bearer " + token
 			}),
-			body: JSON.stringify({ email, password }),
+			body: JSON.stringify({ email, name, firstname, adress, zipcode, town }),
 		})
 			.then(res => {
-				if (res.status === 401) {
-					alert('Erreur d\'authentification');
-				} else if (res.status === 200) {
-					return res.json();
+				res.json()
+				if (res.status === 201) {
+					Alert.alert('Compte modifié avec succès',
+						'',
+						[{ text: "OK", onPress: () => this.goToHomeAfterLogin() }])
 				}
-			})
-			.then((user) => {
-				userLogged(user);
 			})
 	}
 
@@ -84,72 +55,60 @@ class Register extends React.Component {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
-				<Text style={styles.title}>Créer un compte</Text>
-				<Icon name="home" color="#fff"  style={styles.icon} 
-					onPress={() => this.props.navigation.navigate('Home')}
+				<Text style={styles.title}>Modifier mes informations</Text>
+				<Icon name="home" color="#fff" style={styles.icon}
+					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
 				/>
 				<ScrollView style={styles.container2}>
 					<View>
 						<Text style={styles.text}>Email</Text>
 						<TextInput style={styles.signup}
+							placeholder="Email"
+							keyboardType="email-address"
+							onChangeText={(email) => this.setState({ email })}
 							value={this.state.email}
-							editable={false}
-						>
-						</TextInput>
-						<Text style={styles.text}>Mot de passe</Text>
-						<TextInput style={styles.signup}
-							placeholder="Mot de passe"
-							secureTextEntry
-							onChangeText={(password) => this.setState({ password })}
-							value={this.state.password}
-						>
-						</TextInput>
-						<Text style={styles.text}>Vérifier le mot de passe</Text>
-						<TextInput style={styles.signup}
-							placeholder="Vérifier le mot de passe"
-							secureTextEntry
-							onChangeText={(verifypassword) => this.setState({ verifypassword })}
-							value={this.state.verifypassword}
-						>
-						</TextInput>
+						/>
+
 						<Text style={styles.text}>Nom</Text>
 						<TextInput style={styles.signup}
 							placeholder="Nom"
 							onChangeText={(name) => this.setState({ name })}
 							value={this.state.name}
-						>
-						</TextInput>
+						/>
 						<Text style={styles.text}>Prénom</Text>
 						<TextInput style={styles.signup}
 							placeholder="Prénom"
 							onChangeText={(firstname) => this.setState({ firstname })}
 							value={this.state.firstname}
-						>
-						</TextInput>
+						/>
 						<Text style={styles.text}>Adresse</Text>
 						<TextInput
-							style={styles.signup}
+							style={styles.signin}
 							placeholder="N° et Voie"
+							value={this.state.adress}
 							onChangeText={(adress) => this.setState({ adress })}
 						/>
 						<View style={styles.container3}>
 							<TextInput
 								style={styles.inputname}
 								placeholder="Code postal"
+								value={this.state.zipcode}
 								onChangeText={(zipcode) => this.setState({ zipcode })}
 							/>
 							<TextInput
 								label="Ville"
 								style={styles.inputname}
 								placeholder="Ville"
+								value={this.state.town}
 								onChangeText={(town) => this.setState({ town })}
 							/>
 						</View>
+
 						<TouchableOpacity>
 							<Button
 								buttonStyle={styles.button}
 								onPress={this.handleSubmit.bind(this)}
-								title="S' enregistrer"
+								title="Enregistrer les modifications"
 								titleStyle={styles.signinText}
 							/>
 						</TouchableOpacity>
@@ -179,6 +138,18 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		marginBottom: 10,
+		borderRadius: 50,
+		paddingLeft: scale(20),
+		color: "#ffffff"
+	},
+	signin: {
+		backgroundColor: "#2f55a4",
+		marginLeft: scale(16),
+		marginRight: scale(16),
+		paddingVertical: scale(8),
+		alignItems: "center",
+		justifyContent: "center",
+		marginBottom: scale(20),
 		borderRadius: 50,
 		paddingLeft: scale(20),
 		color: "#ffffff"

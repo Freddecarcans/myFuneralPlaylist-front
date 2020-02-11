@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
-
 function EmailScreen(props) {
-
     const [email, setEmail] = useState("");
 
     const goToRegister = () => {
         props.navigation.navigate('Register', { email: { email } });
     }
-
+    
     const submitEmail = async () => {
         Keyboard.dismiss();
-        try {
             const response = await fetch(`${urlApi}/auth/email/${email}`);
             const data = await response.json();
-
             if (data[0] && data !== []) {
                 Alert.alert('Email déjà enregistré', 'Essayez une autre adresse', [{ text: 'OK' }])
             }
@@ -30,22 +26,22 @@ function EmailScreen(props) {
             else {
                 goToRegister();
             }
-        } catch (error) {
-            Alert.alert("Une erreur s'est produite, veuillez réessayer" )
-            console.error(error)
-        }
     }
-
 
     return (
         
         <View style={styles.container}>
             <Image source={escalier} style={styles.mark} resizeMode="cover" />
             <Text style={styles.title}>Entrer une adresse email</Text>
+            <Icon name="home" color="#fff"  style={styles.icon} 
+					onPress={() => props.navigation.navigate('Home')}
+				/>
             <TextInput style={styles.signin}
                 placeholder="Email"
+                keyboardType= "email-address"
                 onChangeText={email => setEmail(email)}
                 value={email}
+                
             >
             </TextInput>
             <TouchableOpacity>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, TextInput, StyleSheet, Image, FlatList, Alert, Keyboard } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { urlApi } from '../../constants';
 import escalier from './images/escalier.jpg';
 
@@ -13,16 +13,19 @@ class Title extends React.Component {
 			artist: ''
 		};
 	}
-
 	// Enregistrer un titre dans la BDD
 	addTrack() {
-		let user_id = this.props.loggedUser.id;
+		const user_id = this.props.loggedUser.id;
+		const token = this.props.loggedUser.token;
+
 		const { title, artist } = this.state;
 		Keyboard.dismiss();
 		fetch(`${urlApi}/users/title`, {
 			method: "POST",
 			headers: new Headers({
-				"Content-Type": "application/json"
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+				"Authorization": "Bearer " + token
 			}),
 			body: JSON.stringify({ title, artist, user_id }),
 		})
@@ -33,7 +36,14 @@ class Title extends React.Component {
 						{
 							text: 'OK',
 							onPress: () => {
-								fetch(`${urlApi}/users/${user_id}/tracks`)
+								fetch(`${urlApi}/users/tracks/${user_id}`, {
+									method: 'GET',
+									headers: new Headers({
+										'Accept': 'application/json',
+										'Content-Type': 'application/json',
+										'Authorization': 'Bearer ' + token
+									})
+								})
 									.then(response => response.json())
 									.then(data => {
 										this.props.playlistFetched(data);
@@ -51,13 +61,15 @@ class Title extends React.Component {
 			<View style={styles.container} >
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Ajouter un morceau</Text>
+				<Icon name="home" color="#fff" style={styles.icon}
+					onPress={() => this.props.navigation.navigate('HomeAfterLogin')}
+				/>
 				<TextInput
 					style={styles.signin}
 					placeholder="Titre"
 					value={this.state.title}
 					onChangeText={(title) => this.setState({ title })}
 				/>
-
 				<TextInput
 					style={styles.signin}
 					placeholder="Artiste"
@@ -91,13 +103,11 @@ const styles = StyleSheet.create({
 		paddingLeft: scale(20),
 		color: "#ffffff"
 	},
-
 	textinput: {
 		marginLeft: 5,
 		marginRight: 5,
 		height: 50,
 		paddingLeft: 5,
-
 	},
 	button: {
 		backgroundColor: "#2f55a4",

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import FetchUser from './MyAccount';
+import MyAccount from './MyAccount';
 import { bindActionCreators } from 'redux';
 import {
   fetchUserSuccess,
@@ -22,4 +22,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FetchUser);
+)(MyAccount);
