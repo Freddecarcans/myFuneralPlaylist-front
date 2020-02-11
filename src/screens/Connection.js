@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert } from 'react-native';
+import { View, TextInput, StyleSheet, Keyboard, Image, Text, Alert, KeyboardAvoidingView } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Icon } from "react-native-elements";
@@ -49,7 +49,7 @@ class Connection extends React.Component {
 	}
 	render() {
 		return (
-			<View style={styles.container}>
+			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Image source={escalier} style={styles.mark} resizeMode="cover" />
 				<Text style={styles.title}>Connexion</Text>
 				<Icon name="home" color="#fff"  style={styles.icon} 
@@ -81,14 +81,14 @@ class Connection extends React.Component {
 						/>
 					</TouchableOpacity>
 				</View>
-			</View >
+			</KeyboardAvoidingView >
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "grey",
+		// backgroundColor: "grey",
 		flex: 1
 	},
 	container2: {
