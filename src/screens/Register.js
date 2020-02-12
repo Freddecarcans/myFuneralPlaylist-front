@@ -28,7 +28,7 @@ class Register extends React.Component {
 		this.props.navigation.navigate('HomeAfterLogin');
 	}
 
-	handleSubmit() {
+	handleSubmit = async () => {
 		const { email, password, name, firstname, adress, zipcode, town } = this.state;
 		Keyboard.dismiss();
 		if (this.state.password.length < 6) {
@@ -37,7 +37,7 @@ class Register extends React.Component {
 		else if (this.state.password !== this.state.verifypassword) {
 			Alert.alert('Erreur mot de passe', 'Les mots de passe ne sont pas identiques', [{ text: 'OK' }])
 		} else {
-			fetch(`${urlApi}/auth/signup`, {
+			await fetch(`${urlApi}/auth/signup`, {
 				method: "POST",
 				headers: new Headers({
 					"Content-Type": "application/json",
@@ -46,7 +46,7 @@ class Register extends React.Component {
 				body: JSON.stringify({ email, password, name, firstname, adress, zipcode, town }),
 			})
 				.then(res => {
-					res.json()
+					// res.json()
 					if (res.status === 201) {
 						this.getUserInfo();
 						Alert.alert('Compte créé avec succès',
