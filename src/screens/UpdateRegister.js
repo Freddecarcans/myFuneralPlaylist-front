@@ -32,12 +32,13 @@ class Register extends React.Component {
 		const token = this.props.loggedUser.token;
 		Keyboard.dismiss();
 
-		fetch(`${urlApi}/users/account/${id}`, {
+		fetch(`${urlApi}/users/account`, {
 			method: "PUT",
 			headers: new Headers({
 				"Content-Type": "application/json",
 				"Accept": "application/json",
-				"Authorization": "Bearer " + token
+				"Authorization": "Bearer " + token,
+				"id": `${id}`
 			}),
 			body: JSON.stringify({ email, name, firstname, adress, zipcode, town }),
 		})
@@ -48,6 +49,7 @@ class Register extends React.Component {
 						[{ text: "OK", onPress: () => this.goToHomeAfterLogin() }])
 				}
 			})
+			.catch((console.error()))
 	}
 
 	render() {

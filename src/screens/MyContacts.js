@@ -21,15 +21,17 @@ class MyContacts extends React.Component {
             isEditable: false
         }
     }
-    componentDidMount() {
+    async componentDidMount() {
+        const id = this.props.loggedUser.id;
         const token = this.props.loggedUser.token;
         this.props.fetchUserStart();
-        fetch(`${urlApi}/users/contacts/${this.props.loggedUser.id}`, {
+        await fetch(`${urlApi}/users/contacts`, {
             method: 'GET',
             headers: new Headers({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Authorization': 'Bearer ' + token,
+                'id': `${id}`
             })
         })
             .then(response => response.json())
@@ -45,19 +47,20 @@ class MyContacts extends React.Component {
     }
     
     //  Enregistrer les contacts
-    saveContacts() {
-        const userId = this.props.loggedUser.id;
+    saveContacts = async () => {
+        const id = this.props.loggedUser.id;
         const token = this.props.loggedUser.token;
         const { contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName } = this.state;
 
         Keyboard.dismiss();
 
-        fetch(`${urlApi}/users/contacts/${userId}`, {
+        await fetch(`${urlApi}/users/addcontacts`, {
             method: "PUT",
             headers: new Headers({
                 "Accept": "application/json",
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
+                "Authorization": "Bearer " + token,
+                "id": `${id}`
             }),
             body: JSON.stringify({ contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName }),
         })
@@ -67,6 +70,7 @@ class MyContacts extends React.Component {
                         { text: 'OK', onPress: () => { this.goToHomeAfterLogin() } }])
                 }
             })
+            .catch((console.error()))
     }
     render() {
         const { contactA, contactAName, contactAFirstName, contactB, contactBName, contactBFirstName } = this.state;

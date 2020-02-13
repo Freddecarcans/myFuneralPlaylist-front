@@ -35,12 +35,13 @@ class Title extends React.Component {
 						{
 							text: 'OK',
 							onPress: () => {
-								fetch(`${urlApi}/users/tracks/${user_id}`, {
+								fetch(`${urlApi}/users/tracks`, {
 									method: 'GET',
 									headers: new Headers({
 										'Accept': 'application/json',
 										'Content-Type': 'application/json',
-										'Authorization': 'Bearer ' + token
+										'Authorization': 'Bearer ' + token,
+										'id': `${user_id}`
 									})
 								})
 									.then(response => response.json())

@@ -31,21 +31,24 @@ class HomeAfterLogin extends React.Component {
 		navigate('MyContacts')
 	}
 	async componentDidMount() {
+		const id = this.props.loggedUser.id;
 		const token = this.props.loggedUser.token;
 			this.props.fetchUserStart();
 			// await fetch(`${urlApi}/users/profile/${this.props.loggedUser.id}`)
-			await fetch(`${urlApi}/users/profile/${this.props.loggedUser.id}`, {
+			await fetch(`${urlApi}/users/profile` , {
 				method: 'GET',
 				headers: new Headers({
 					'Accept': 'application/json',
 					'Content-Type': 'application/json',
-					'Authorization': 'Bearer ' + token
+					'Authorization': 'Bearer ' + token,
+					'id': `${id}`
 				})
 			})
 				.then(response => response.json())
 				.then(data => {
 					this.props.fetchUserSuccess(data);
 				})
+				.catch((console.error()))
 	}
 
 	render() {

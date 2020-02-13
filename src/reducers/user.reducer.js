@@ -1,18 +1,6 @@
 const initialState = {
     loading: true,
-    data: {
-        iduser:"",
-        email: "",
-        name: "",
-        firstname: "",
-        username: "",
-        contactA: "",
-        contactAName: "",
-        contactAFirstName: "",
-        contactB: "",
-        contactBName: "",
-        contactBFirstName: ""
-    },
+    data: {},
     error: ''
 };
 const user = (state = initialState, action) => {

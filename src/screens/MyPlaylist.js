@@ -18,12 +18,13 @@ export default class MyPlaylist extends React.Component {
         const token = this.props.loggedUser.token;
         try {
             this.props.playlistFetch();
-            fetch(`${urlApi}/users/tracks/${id}`, {
+            fetch(`${urlApi}/users/tracks`, {
                 method: 'GET',
                 headers: new Headers({
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'id': `${id}`
                 })
             })
                 .then(response => response.json())
@@ -45,12 +46,13 @@ export default class MyPlaylist extends React.Component {
 
     deleteTrack(idtitle) {
         const token = this.props.loggedUser.token;
-        fetch(`${urlApi}/users/tracks/${idtitle}`, {
+        fetch(`${urlApi}/users/deltracks`, {
             method: 'DELETE',
             headers: new Headers({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Authorization': 'Bearer ' + token,
+                'idtitle': idtitle
             })
         })
             .then(res => {

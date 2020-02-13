@@ -46,6 +46,9 @@ class Connection extends React.Component {
 					this.goToHomeAfterLogin();
 				// }
 			})
+			.catch((error) =>
+				console.error(error)
+			)
 	}
 	render() {
 		return (

@@ -78,6 +78,7 @@ class Register extends React.Component {
 			.then((user) => {
 				userLogged(user);
 			})
+			.catch((console.error()))
 	}
 
 	render() {
